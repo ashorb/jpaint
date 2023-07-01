@@ -1,5 +1,6 @@
 package view;
 
+import controller.CreateShape;
 import model.Point;
 import view.gui.PaintCanvas;
 
@@ -74,8 +75,9 @@ public class ClickHandler extends MouseAdapter {
         }
 
         if(width != 0 && height != 0) {
-            graphics2D.setColor(Color.GREEN);
-            graphics2D.fillRect(x, y, width, height);
+//            graphics2D.setColor(Color.GREEN);
+//            graphics2D.fillRect(x, y, width, height);
+            CreateShape.createShape(paintCanvas, x, y, width, height);
 
 //            graphics2D.setStroke(new BasicStroke(5));
 //            graphics2D.setColor(Color.BLUE);
@@ -101,6 +103,8 @@ public class ClickHandler extends MouseAdapter {
 //        graphics2D.setStroke(new BasicStroke(10));
 //        graphics2D.setColor(Color.BLUE);
 //        graphics2D.drawRect(startPoint.x , startPoint.y, width, height);
+
+
     }
 
 
