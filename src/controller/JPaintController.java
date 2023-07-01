@@ -1,6 +1,8 @@
 package controller;
 
+import model.ShapeList;
 import model.interfaces.IApplicationState;
+import model.persistence.CommandHistory;
 import view.EventName;
 import view.interfaces.IUiModule;
 
@@ -30,9 +32,11 @@ public class JPaintController implements IJPaintController {
     }
 
     private void undo() {
+        CommandHistory.undo();
     }
 
     private void redo() {
+        CommandHistory.redo();
     }
 
     private void copy() {

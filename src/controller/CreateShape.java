@@ -9,10 +9,12 @@ import java.awt.*;
 
 public class CreateShape implements IUndoable {
     private Shape shape;
+    private ShapeList list;
 
     public void createShape(ShapeList shapeList, int x, int y, int width, int height){
         shape = new Shape(x, y, width, height);
-        shapeList.add(shape);
+        list = shapeList;
+        list.add(shape);
         CommandHistory.add(this);
 
 //        paintCanvas.repaint();
@@ -24,11 +26,11 @@ public class CreateShape implements IUndoable {
 
     @Override
     public void undo() {
-
+        list.remove();
     }
 
     @Override
     public void redo() {
-
+        list.add(shape);
     }
 }
