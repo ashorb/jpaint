@@ -2,6 +2,7 @@ package view;
 
 import controller.CreateShape;
 import model.Point;
+import model.ShapeList;
 import view.gui.PaintCanvas;
 
 import java.awt.*;
@@ -11,13 +12,15 @@ import java.awt.event.MouseEvent;
 public class ClickHandler extends MouseAdapter {
 
     PaintCanvas paintCanvas;
+    ShapeList shapeList;
 //    Graphics2D graphics2D;
 
     Point startPoint = new Point();
     Point endPoint = new Point();
 
-    public ClickHandler(PaintCanvas paintCanvas) {
+    public ClickHandler(PaintCanvas paintCanvas, ShapeList shapeList) {
         this.paintCanvas = paintCanvas;
+        this.shapeList = shapeList;
 //        this.graphics2D = (Graphics2D)paintCanvas.getGraphics();
     }
 
@@ -31,7 +34,7 @@ public class ClickHandler extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) { //location when mouse released
-        Graphics2D graphics2D = (Graphics2D)paintCanvas.getGraphics();
+//        Graphics2D graphics2D = (Graphics2D)paintCanvas.getGraphics();
 //        Graphics graphics2D = paintCanvas.getGraphics();
 
         endPoint.x = e.getX();
@@ -77,7 +80,8 @@ public class ClickHandler extends MouseAdapter {
         if(width != 0 && height != 0) {
 //            graphics2D.setColor(Color.GREEN);
 //            graphics2D.fillRect(x, y, width, height);
-            CreateShape.createShape(paintCanvas, x, y, width, height);
+            CreateShape createNew = new CreateShape();
+            createNew.createShape(paintCanvas, shapeList, x, y, width, height);
 
 //            graphics2D.setStroke(new BasicStroke(5));
 //            graphics2D.setColor(Color.BLUE);
