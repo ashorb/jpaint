@@ -78,10 +78,11 @@ public class ClickHandler extends MouseAdapter {
         }
 
         if(width != 0 && height != 0) {
-//            graphics2D.setColor(Color.GREEN);
-//            graphics2D.fillRect(x, y, width, height);
             CreateShape createNew = new CreateShape();
             createNew.createShape(paintCanvas, shapeList, x, y, width, height);
+
+//            graphics2D.setColor(Color.GREEN);
+//            graphics2D.fillRect(x, y, width, height);
 
 //            graphics2D.setStroke(new BasicStroke(5));
 //            graphics2D.setColor(Color.BLUE);
