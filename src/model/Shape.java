@@ -29,9 +29,9 @@ public class Shape implements IShape{
         return height;
     }
 
-    @Override
-    public String toString() {
-        return "Rectangle: " +
-                "x = " + x + " y = " + y;
-    }
+//    @Override
+//    public String toString() {
+//        return "Rectangle: " +
+//                "x = " + x + " y = " + y;
+//    }
 }
