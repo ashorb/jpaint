@@ -11,8 +11,8 @@ import java.awt.event.MouseEvent;
 
 public class ClickHandler extends MouseAdapter {
 
-    PaintCanvas paintCanvas;
-    ShapeList shapeList;
+    private final PaintCanvas paintCanvas;
+    private final ShapeList shapeList;
     Point startPoint = new Point();
     Point endPoint = new Point();
 

@@ -10,7 +10,7 @@ final public class ShapeList {
     private PaintCanvas paintCanvas;
 
     public ShapeList() {
-        list = new ArrayList<Shape>();
+        list = new ArrayList<>();
     }
 
     public void add(Shape s) {

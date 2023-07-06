@@ -1,14 +1,15 @@
 package controller;
 
-import model.ShapeList;
 import model.interfaces.IApplicationState;
-import model.persistence.CommandHistory;
+import model.interfaces.ICommand;
 import view.EventName;
 import view.interfaces.IUiModule;
 
 public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
+    private ICommand command;
+//    private ProcessCommand pcomm = new ProcessCommand();
 
     public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
         this.uiModule = uiModule;
@@ -32,11 +33,21 @@ public class JPaintController implements IJPaintController {
     }
 
     private void undo() {
-        CommandHistory.undo();
+//        CommandHistory.undo();
+
+        command = new UndoCommand();
+        command.execute();
+
+//        pcomm.process(command);
     }
 
     private void redo() {
-        CommandHistory.redo();
+//        CommandHistory.redo();
+
+        command = new RedoCommand();
+        command.execute();
+
+//        pcomm.process(command);
     }
 
     private void copy() {
