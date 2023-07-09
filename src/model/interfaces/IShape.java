@@ -1,5 +1,7 @@
 package model.interfaces;
 
+import model.ShapeColor;
+import model.ShapeShadingType;
 import model.ShapeType;
 
 public interface IShape {
@@ -10,6 +12,9 @@ public interface IShape {
     int[] getXPoints();
     int[] getYPoints();
     ShapeType getShapeType();
+    ShapeShadingType getShapeShadingType();
+    ShapeColor getPrimaryColor();
+    ShapeColor getSecondaryColor();
 
     void draw();
     void move();

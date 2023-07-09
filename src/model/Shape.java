@@ -10,6 +10,9 @@ public abstract class Shape implements IShape{
 //    int[] xPoints;
 //    int[] yPoints;
     ShapeType shapeType;
+    ShapeShadingType shapeShadingType;
+    ShapeColor primaryColor;
+    ShapeColor secondaryColor;
 
     public Shape(ApplicationState appState, int startX, int startY, int endX, int endY){
         x = Math.min(startX, endX);
@@ -18,6 +21,9 @@ public abstract class Shape implements IShape{
         height = Math.abs(endY - startY);
 
         shapeType = appState.getActiveShapeType();
+        shapeShadingType = appState.getActiveShapeShadingType();
+        primaryColor = appState.getActivePrimaryColor();
+        secondaryColor = appState.getActiveSecondaryColor();
     }
 
 
@@ -61,7 +67,15 @@ public abstract class Shape implements IShape{
     public ShapeType getShapeType() {
         return shapeType;
     }
-//    public int[] getXPoints() {
+    public ShapeShadingType getShapeShadingType() {
+        return shapeShadingType;
+    }
+    public ShapeColor getPrimaryColor() {
+        return primaryColor;
+    }
+    public ShapeColor getSecondaryColor() {
+        return secondaryColor;
+    }
 //        return xPoints;
 //    }
 //    public int[] getYPoints() {

@@ -5,13 +5,16 @@ import java.awt.*;
 //import model.Shape;
 import model.ShapeList;
 import model.ShapeType;
-import model.interfaces.IDrawStrategy;
+import model.drawing.PaintEllipse;
+import model.drawing.PaintRectangle;
+import model.drawing.PaintTriangle;
+import model.interfaces.IPaintStrategy;
 import model.interfaces.IShape;
 
 public class PaintCanvas extends JComponent {
-    public ShapeList shapeList;
+    private final ShapeList shapeList;
+    private IPaintStrategy paintStrategy;
 
-    private IDrawStrategy drawStrategy;
     public PaintCanvas(ShapeList shapeList) {
         this.shapeList = shapeList;
     }
@@ -27,20 +30,47 @@ public class PaintCanvas extends JComponent {
 
         // Draw all shapes here
 
+//        DrawShapes drawShapes = new DrawShapes(shapeList);
+//        drawShapes.draw(graphics2d);
 
         for (IShape s : shapeList.getList()) {
-//            graphics2d.setColor(Color.GREEN);
-            graphics2d.setStroke(new BasicStroke(5));
-            graphics2d.setColor(Color.BLUE);
 
             if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
-                graphics2d.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+                paintStrategy = new PaintRectangle();
             } else if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
-                graphics2d.drawOval(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+                paintStrategy = new PaintEllipse();
             } else if (s.getShapeType().equals(ShapeType.TRIANGLE)) {
-                graphics2d.drawPolygon(s.getXPoints(), s.getYPoints(), 3);
+                paintStrategy = new PaintTriangle();
             }
+
+            paintStrategy.paintShape(s, graphics2d);
         }
+
+
+//        for (IShape s : shapeList.getList()) {
+////            graphics2d.setColor(Color.GREEN);
+//            graphics2d.setStroke(new BasicStroke(5));
+//            graphics2d.setColor(Color.BLUE);
+//
+//            if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
+//                graphics2d.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+//            } else if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
+//                graphics2d.drawOval(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+//            } else if (s.getShapeType().equals(ShapeType.TRIANGLE)) {
+//                graphics2d.drawPolygon(s.getXPoints(), s.getYPoints(), 3);
+//            }
+//        }
+
+
+//        for (IShape s : shapeList.getList()) {
+//            if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
+//                graphics2d.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+//            } else if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
+//                graphics2d.drawOval(s.getX(), s.getY(), s.getWidth(), s.getHeight());
+//            } else if (s.getShapeType().equals(ShapeType.TRIANGLE)) {
+//                graphics2d.drawPolygon(s.getXPoints(), s.getYPoints(), 3);
+////            }
+//        }
 
 
 

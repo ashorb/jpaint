@@ -15,3 +15,6 @@ ICommand, UndoCommand, RedoCommand, JPaintController, CommandHistory, IUndoable
 
 **Static Factory pattern used for creating shapes:**
 CreateShape, ShapeFactory, IShape, Shape, Rectangle, Ellipse, Triangle, Point
+
+**Strategy pattern used for painting shapes to canvas:**
+PaintCanvas, IDrawStrategy, PaintRectangle, PaintEllipse, PaintTriangle
