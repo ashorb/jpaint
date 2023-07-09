@@ -5,10 +5,13 @@ import java.awt.*;
 //import model.Shape;
 import model.ShapeList;
 import model.ShapeType;
+import model.interfaces.IDrawStrategy;
 import model.interfaces.IShape;
 
 public class PaintCanvas extends JComponent {
     public ShapeList shapeList;
+
+    private IDrawStrategy drawStrategy;
     public PaintCanvas(ShapeList shapeList) {
         this.shapeList = shapeList;
     }
@@ -30,21 +33,20 @@ public class PaintCanvas extends JComponent {
             graphics2d.setStroke(new BasicStroke(5));
             graphics2d.setColor(Color.BLUE);
 
-            if (s.getShapeType().equals(ShapeType.RECTANGLE)){
+            if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
                 graphics2d.drawRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-            }
-            else if (s.getShapeType().equals(ShapeType.ELLIPSE)){
+            } else if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
                 graphics2d.drawOval(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-            }
-            else if (s.getShapeType().equals(ShapeType.TRIANGLE)){
+            } else if (s.getShapeType().equals(ShapeType.TRIANGLE)) {
                 graphics2d.drawPolygon(s.getXPoints(), s.getYPoints(), 3);
             }
+        }
 
 
 
 //            graphics2d.drawOval(s.getX(), s.getY(), s.getWidth(), s.getHeight());
 //            graphics2d.drawPolygon(s.getXPoints(), s.getYPoints(), 3);
-        }
+//        }
 
 
 //        For example purposes only; remove all lines below from your final project.
