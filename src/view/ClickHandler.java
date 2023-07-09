@@ -3,22 +3,21 @@ package view;
 import controller.CreateShape;
 import model.Point;
 import model.ShapeList;
-import view.gui.PaintCanvas;
+import model.persistence.ApplicationState;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class ClickHandler extends MouseAdapter {
 
-    private final PaintCanvas paintCanvas;
+    private final ApplicationState appState;
     private final ShapeList shapeList;
     Point startPoint = new Point();
     Point endPoint = new Point();
 
-    public ClickHandler(PaintCanvas paintCanvas, ShapeList shapeList) {
-        this.paintCanvas = paintCanvas;
+    public ClickHandler(ApplicationState appState, ShapeList shapeList) {
         this.shapeList = shapeList;
+        this.appState = appState;
     }
 
     @Override
@@ -26,59 +25,25 @@ public class ClickHandler extends MouseAdapter {
         startPoint.x = e.getX();
         startPoint.y = e.getY();
 
-//        System.out.println("Pressed:  x = " + startPoint.x +  " y = " +  startPoint.y);
+        System.out.println("Pressed:  x = " + startPoint.x +  " y = " +  startPoint.y);
     }
 
     @Override
     public void mouseReleased(MouseEvent e) { //location when mouse released
-//        Graphics2D graphics2D = (Graphics2D)paintCanvas.getGraphics();
-//        Graphics graphics2D = paintCanvas.getGraphics();
-
         endPoint.x = e.getX();
         endPoint.y = e.getY();
-        int width = 0;
-        int height = 0;
-        int x = 0;
-        int y = 0;
+        int width;
+        int height;
 
-        if (startPoint.x < endPoint.x && startPoint.y < endPoint.y ){
-            //top-left to bottom-right
-            width = endPoint.x - startPoint.x;
-            height = endPoint.y - startPoint.y;
-            x = startPoint.x;
-            y = startPoint.y;
-        }
-        else if (startPoint.x > endPoint.x && startPoint.y > endPoint.y ){
-            //bottom-right to top-left
-            width = startPoint.x - endPoint.x;
-            height = startPoint.y - endPoint.y;
-            x = endPoint.x;
-            y = endPoint.y;
-        }
-        else if (startPoint.x > endPoint.x && startPoint.y < endPoint.y ){
-            //top-right to bottom-left
-            width = startPoint.x - endPoint.x;
-            height = endPoint.y - startPoint.y;
-            x = endPoint.x;
-            y = startPoint.y;
-        }
-        else if (startPoint.x < endPoint.x && startPoint.y > endPoint.y ){
-            //bottom-left to top-right
-            width = endPoint.x -  startPoint.x;
-            height =  startPoint.y - endPoint.y;
-            x = startPoint.x;
-            y = endPoint.y;
-        }
+        width = Math.abs(endPoint.getX() - startPoint.getX());
+        height = Math.abs(endPoint.getY() - startPoint.getY());
 
         if(width != 0 && height != 0) {
             CreateShape createNew = new CreateShape();
-            createNew.createShape(shapeList, x, y, width, height);
+            createNew.createShape(appState, shapeList, startPoint, endPoint);
         }
 
-//        System.out.println("Released: x = " + endPoint.x + " y = " +  endPoint.y);
-
+        System.out.println("Released: x = " + endPoint.x + " y = " +  endPoint.y);
+//        System.out.println("height: " + height + " width: " +  width);
     }
-
-
-
 }

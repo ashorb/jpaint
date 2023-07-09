@@ -1,19 +1,20 @@
 package model;
 
+import model.interfaces.IShape;
 import view.gui.PaintCanvas;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 final public class ShapeList {
-    private final ArrayList<Shape> list;
+    private final ArrayList<IShape> list;
     private PaintCanvas paintCanvas;
 
     public ShapeList() {
         list = new ArrayList<>();
     }
 
-    public void add(Shape s) {
+    public void add(IShape s) {
         if (s == null) throw new IllegalArgumentException();
         list.add(s);
         paintCanvas.repaint();
@@ -25,7 +26,7 @@ final public class ShapeList {
         paintCanvas.repaint();
     }
 
-    public ArrayList<Shape> getList() {
+    public ArrayList<IShape> getList() {
         return list;
     }
 

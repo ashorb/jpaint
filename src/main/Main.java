@@ -21,6 +21,6 @@ public class Main {
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
         new JPaintController(uiModule, appState);
-        paintCanvas.addMouseListener(new ClickHandler(paintCanvas, shapeList));
+        paintCanvas.addMouseListener(new ClickHandler(appState, shapeList));
     }
 }

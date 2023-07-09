@@ -12,3 +12,6 @@
 
 **Command pattern used for undo/redo features:** 
 ICommand, UndoCommand, RedoCommand, JPaintController, CommandHistory, IUndoable
+
+**Static Factory pattern used for creating shapes:**
+CreateShape, ShapeFactory, IShape, Shape, Rectangle, Ellipse, Triangle, Point
