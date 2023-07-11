@@ -13,6 +13,7 @@ public class CreateShape implements IUndoable {
     private IShape ishape;
     private static ShapeList list;
 
+
     public void createShape(ApplicationState appState, ShapeList shapeList, Point startPoint, Point endPoint){
 
         if (appState.getActiveShapeType().equals(ShapeType.RECTANGLE)) {

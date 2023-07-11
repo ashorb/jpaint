@@ -17,4 +17,4 @@ ICommand, UndoCommand, RedoCommand, JPaintController, CommandHistory, IUndoable
 CreateShape, ShapeFactory, IShape, Shape, Rectangle, Ellipse, Triangle, Point
 
 **Strategy pattern used for painting shapes to canvas:**
-PaintCanvas, IPaintStrategy, PaintRectangle, PaintEllipse, PaintTriangle
+PaintCanvas, IPaintStrategy, ShapePainter, PaintRectangle, PaintEllipse, PaintTriangle

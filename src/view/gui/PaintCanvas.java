@@ -8,6 +8,7 @@ import model.ShapeType;
 import model.drawing.PaintEllipse;
 import model.drawing.PaintRectangle;
 import model.drawing.PaintTriangle;
+import model.drawing.ShapePainter;
 import model.interfaces.IPaintStrategy;
 import model.interfaces.IShape;
 
@@ -27,6 +28,7 @@ public class PaintCanvas extends JComponent {
     public void paint(Graphics g) {
 
         Graphics2D graphics2d = (Graphics2D)g;
+        ShapePainter painter;
 
         // Draw all shapes here
 
@@ -43,7 +45,10 @@ public class PaintCanvas extends JComponent {
                 paintStrategy = new PaintTriangle();
             }
 
-            paintStrategy.paintShape(s, graphics2d);
+//            paintStrategy.paintShape(s, graphics2d);
+
+            painter = new ShapePainter(paintStrategy);
+            painter.paintShape(s, graphics2d);
         }
 
 
