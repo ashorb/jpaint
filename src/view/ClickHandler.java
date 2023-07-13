@@ -12,8 +12,8 @@ public class ClickHandler extends MouseAdapter {
 
     private final ApplicationState appState;
     private final ShapeList shapeList;
-    Point startPoint = new Point();
-    Point endPoint = new Point();
+    private final Point startPoint = new Point();
+    private final Point endPoint = new Point();
 
     public ClickHandler(ApplicationState appState, ShapeList shapeList) {
         this.shapeList = shapeList;
@@ -44,6 +44,5 @@ public class ClickHandler extends MouseAdapter {
         }
 
         System.out.println("Released: x = " + endPoint.x + " y = " +  endPoint.y);
-//        System.out.println("height: " + height + " width: " +  width);
     }
 }

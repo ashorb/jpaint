@@ -26,28 +26,6 @@ public abstract class Shape implements IShape{
         secondaryColor = appState.getActiveSecondaryColor();
     }
 
-
-//    public Shape (int x, int y, int width, int height){
-//        this.x = x;
-//        this.y = y;
-//        this.width = width;
-//        this.height = height;
-//    }
-
-//    public Shape (Point x, Point y){
-//        this.x = x;
-//        this.y = y;
-//    }
-
-//    @Override
-//    public Point getX() {
-//        return x;
-//    }
-//    @Override
-//    public Point getY() {
-//        return y;
-//    }
-
     public int getX() {
         return x;
     }
@@ -76,9 +54,4 @@ public abstract class Shape implements IShape{
     public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
-//        return xPoints;
-//    }
-//    public int[] getYPoints() {
-//        return yPoints;
-//    }
 }

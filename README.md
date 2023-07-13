@@ -18,3 +18,6 @@ CreateShape, ShapeFactory, IShape, Shape, Rectangle, Ellipse, Triangle, Point
 
 **Strategy pattern used for painting shapes to canvas:**
 PaintCanvas, IPaintStrategy, ShapePainter, PaintRectangle, PaintEllipse, PaintTriangle
+
+**Observer pattern used for decoupling PaintCanvas and repaint() from ShapeList:**
+PaintCanvas, ShapeList, Main, IShapeListObserver, IShapeListSubject

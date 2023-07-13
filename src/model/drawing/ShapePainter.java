@@ -24,5 +24,4 @@ public class ShapePainter {
             paintStrategy.drawFilledInOutline(shape, graphics2d);
         }
     }
-
 }

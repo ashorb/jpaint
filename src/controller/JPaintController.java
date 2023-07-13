@@ -9,7 +9,6 @@ public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
     private ICommand command;
-//    private ProcessCommand pcomm = new ProcessCommand();
 
     public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
         this.uiModule = uiModule;
@@ -33,21 +32,13 @@ public class JPaintController implements IJPaintController {
     }
 
     private void undo() {
-//        CommandHistory.undo();
-
         command = new UndoCommand();
         command.execute();
-
-//        pcomm.process(command);
     }
 
     private void redo() {
-//        CommandHistory.redo();
-
         command = new RedoCommand();
         command.execute();
-
-//        pcomm.process(command);
     }
 
     private void copy() {

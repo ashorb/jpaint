@@ -15,7 +15,7 @@ public class Main {
     public static void main(String[] args){
         ShapeList shapeList = new ShapeList();
         PaintCanvas paintCanvas = new PaintCanvas(shapeList);
-        shapeList.setPaintCanvas(paintCanvas);
+        shapeList.registerObserver(paintCanvas);
 
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
