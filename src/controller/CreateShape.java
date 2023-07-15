@@ -22,7 +22,7 @@ public class CreateShape implements IUndoable {
         else if (appState.getActiveShapeType().equals(ShapeType.ELLIPSE)) {
             ishape = ShapeFactory.createEllipse(appState, startPoint, endPoint);
         }
-        else {
+        else if (appState.getActiveShapeType().equals(ShapeType.TRIANGLE)){
             ishape = ShapeFactory.createTriangle(appState, startPoint, endPoint);
         }
 

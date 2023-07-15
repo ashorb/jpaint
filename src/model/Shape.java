@@ -5,10 +5,14 @@ import model.persistence.ApplicationState;
 public abstract class Shape implements IShape{
     int x;
     int y;
+    int startX;
+    int startY;
+    int endX;
+    int endY;
     int width;
     int height;
-//    int[] xPoints;
-//    int[] yPoints;
+    int[] xPoints;
+    int[] yPoints;
     ShapeType shapeType;
     ShapeShadingType shapeShadingType;
     ShapeColor primaryColor;
@@ -17,8 +21,17 @@ public abstract class Shape implements IShape{
     public Shape(ApplicationState appState, int startX, int startY, int endX, int endY){
         x = Math.min(startX, endX);
         y = Math.min(startY, endY);
+
+        this.startX = startX;
+        this.startY = startY;
+        this.endX = endX;
+        this.endY = endY;
+
         width = Math.abs(endX - startX);
         height = Math.abs(endY - startY);
+
+        xPoints = new int[]{startX, endX, startX};
+        yPoints = new int[]{startY, endY, endY};
 
         shapeType = appState.getActiveShapeType();
         shapeShadingType = appState.getActiveShapeShadingType();
@@ -42,6 +55,15 @@ public abstract class Shape implements IShape{
         return height;
     }
 
+    @Override
+    public int[] getXPoints() {
+        return xPoints;
+    }
+    @Override
+    public int[] getYPoints() {
+        return yPoints;
+    }
+
     public ShapeType getShapeType() {
         return shapeType;
     }
@@ -58,5 +80,13 @@ public abstract class Shape implements IShape{
     public void move(int deltaX, int deltaY){
         x = x + deltaX;
         y = y + deltaY;
+
+        startX += deltaX;
+        startY += deltaY;
+        endX = endX + deltaX;
+        endY = endY + deltaY;
+
+        xPoints = new int[]{startX, endX, startX};
+        yPoints = new int[]{startY, endY, endY};
     };
 }
