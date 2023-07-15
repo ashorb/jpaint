@@ -15,7 +15,6 @@ class Ellipse extends Shape {
     public int[] getXPoints() {
         return new int[0];
     }
-
     @Override
     public int[] getYPoints() {
         return new int[0];
@@ -23,10 +22,6 @@ class Ellipse extends Shape {
 
     @Override
     public void draw() {
-
-    }
-    @Override
-    public void move() {
 
     }
     @Override

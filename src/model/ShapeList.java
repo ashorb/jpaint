@@ -10,7 +10,6 @@ import java.util.List;
 
 final public class ShapeList implements IShapeListSubject {
     private final ArrayList<IShape> list;
-
     private List<IShapeListObserver> shapeListObservers = new ArrayList<>();
 
     public ShapeList() {
@@ -37,14 +36,14 @@ final public class ShapeList implements IShapeListSubject {
     public void registerObserver(IShapeListObserver observer) {
         shapeListObservers.add(observer);
     }
-//    @Override
-//    public void removeObserver(IShapeListObserver observer) {
-//        shapeListObservers.remove(observer);
-//    }
 
     private void notifyShapeListObservers(){
         for (var shapeListObserver : shapeListObservers){
             shapeListObserver.update();
         }
+    }
+
+    public List<IShapeListObserver> getShapeListObservers() {
+        return shapeListObservers;
     }
 }

@@ -54,4 +54,9 @@ public abstract class Shape implements IShape{
     public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
+
+    public void move(int deltaX, int deltaY){
+        x = x + deltaX;
+        y = y + deltaY;
+    };
 }

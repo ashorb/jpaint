@@ -25,10 +25,6 @@ class Rectangle extends Shape {
 
     }
     @Override
-    public void move() {
-
-    }
-    @Override
     public void paste() {
 
     }

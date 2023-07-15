@@ -17,7 +17,9 @@ public interface IShape {
     ShapeColor getSecondaryColor();
 
     void draw();
-    void move();
+    void move(int deltaX, int deltaY);
     void paste();
     void delete();
+
+
 }
