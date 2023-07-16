@@ -3,7 +3,7 @@ package controller;
 import model.Point;
 import model.ShapeFactory;
 import model.ShapeType;
-import model.interfaces.IUndoable;
+import controller.interfaces.IUndoable;
 import model.interfaces.IShape;
 import model.ShapeList;
 import model.persistence.ApplicationState;

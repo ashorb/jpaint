@@ -1,6 +1,6 @@
-package controller;
+package controller.commands;
 
-import model.interfaces.ICommand;
+import controller.interfaces.ICommand;
 import model.persistence.CommandHistory;
 
 public class RedoCommand implements ICommand {

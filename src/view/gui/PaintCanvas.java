@@ -10,7 +10,7 @@ import model.drawing.PaintTriangle;
 import model.drawing.ShapePainter;
 import model.interfaces.IPaintStrategy;
 import model.interfaces.IShape;
-import view.interfaces.IShapeListObserver;
+import controller.interfaces.IShapeListObserver;
 
 public class PaintCanvas extends JComponent implements IShapeListObserver {
     private final ShapeList shapeList;

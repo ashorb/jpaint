@@ -3,10 +3,12 @@
 
 ### **GitHub link:** https://github.com/ashorb/jpaint
 
+### **Check-in 2:**
+-Required features working. Can draw rectangle, ellipses, and triangles of all three shading types.
+ Can select and move single/multiple shapes and can undo/redo move.
+
 ### **Check-in 1:**
-
 -Required features working. Can draw rectangles from all directions and can undo/redo.
-
 
 ### **Design patterns used:**
 
@@ -19,5 +21,5 @@ CreateShape, ShapeFactory, IShape, Shape, Rectangle, Ellipse, Triangle, Point
 **Strategy pattern used for painting shapes to canvas:**
 PaintCanvas, IPaintStrategy, ShapePainter, PaintRectangle, PaintEllipse, PaintTriangle
 
-**Observer pattern used for decoupling PaintCanvas and repaint() from ShapeList:**
-PaintCanvas, ShapeList, Main, IShapeListObserver, IShapeListSubject
+**Observer pattern used for decoupling PaintCanvas and repaint() from ShapeList and MoveShape:**
+PaintCanvas, ShapeList, MoveShape, Main, ObserverSubject, IShapeListObserver, IShapeListSubject

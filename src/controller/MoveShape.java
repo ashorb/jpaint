@@ -2,23 +2,24 @@ package controller;
 
 import model.Point;
 import model.interfaces.IShape;
-import model.interfaces.IUndoable;
+import controller.interfaces.IUndoable;
 import model.persistence.CommandHistory;
-import view.interfaces.IShapeListObserver;
+import controller.interfaces.IShapeListObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MoveShape implements IUndoable {
-    private ArrayList<IShape> movedShapeList = new ArrayList<IShape>();
-    private ArrayList<IShape> selectedShapeList;
-    private List<IShapeListObserver> shapeListObservers;
+public class MoveShape extends ObserverSubject implements IUndoable {
+    private final ArrayList<IShape> movedShapeList = new ArrayList<IShape>();
+    private final ArrayList<IShape> selectedShapeList;
+//    private final List<IShapeListObserver> shapeListObservers;
     int deltaX;
     int deltaY;
 
+
     public MoveShape(ArrayList<IShape> selectedShapeList, List<IShapeListObserver> shapeListObservers) {
         this.selectedShapeList = selectedShapeList;
-        this.shapeListObservers = shapeListObservers;
+//        this.shapeListObservers = shapeListObservers;
     }
 
     public void moveShape(Point startPoint, Point endPoint){
@@ -51,8 +52,14 @@ public class MoveShape implements IUndoable {
         notifyShapeListObservers();
     }
 
+//    private void notifyShapeListObservers(){
+//        for (var shapeListObserver : shapeListObservers){
+//            shapeListObserver.update();
+//        }
+//    }
+
     private void notifyShapeListObservers(){
-        for (var shapeListObserver : shapeListObservers){
+        for (var shapeListObserver : getShapeListObservers()){
             shapeListObserver.update();
         }
     }

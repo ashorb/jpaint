@@ -1,6 +1,4 @@
-package view.interfaces;
-
-import java.util.List;
+package controller.interfaces;
 
 public interface IShapeListSubject {
     void registerObserver(IShapeListObserver observer);

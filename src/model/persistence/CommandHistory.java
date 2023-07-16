@@ -1,6 +1,6 @@
 package model.persistence;
 
-import model.interfaces.IUndoable;
+import controller.interfaces.IUndoable;
 import java.util.Stack;
 
 public class CommandHistory {

@@ -14,7 +14,7 @@ public class ClickHandler extends MouseAdapter {
 
     private final ApplicationState appState;
     private final ShapeList shapeList;
-    SelectShape selectedShapes = new SelectShape();
+    private final SelectShape selectedShapes = new SelectShape();
     private final Point startPoint = new Point();
     private final Point endPoint = new Point();
 
@@ -41,23 +41,23 @@ public class ClickHandler extends MouseAdapter {
         width = Math.abs(endPoint.getX() - startPoint.getX());
         height = Math.abs(endPoint.getY() - startPoint.getY());
 
-
-
         switch (appState.getActiveMouseMode()){
             case SELECT:
                 selectedShapes.selectShape(appState, shapeList, startPoint, endPoint);
                 System.out.println(selectedShapes.getList());
                 break;
             case MOVE:
-                MoveShape move = new MoveShape(selectedShapes.getList(), shapeList.getShapeListObservers());
-                move.moveShape(startPoint, endPoint);
-                System.out.println(selectedShapes.getList());
+                if (startPoint.getX() != endPoint.getX() || startPoint.getY() != endPoint.getY()) {
+                    MoveShape move = new MoveShape(selectedShapes.getList(), shapeList.getShapeListObservers());
+                    move.moveShape(startPoint, endPoint);
+                    System.out.println(selectedShapes.getList());
+                }
                 break;
             case DRAW:
                 if(width != 0 && height != 0) {
                     CreateShape createNew = new CreateShape();
                     createNew.createShape(appState, shapeList, startPoint, endPoint);
-                };
+                }
                 break;
         }
 

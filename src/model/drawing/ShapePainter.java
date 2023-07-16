@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class ShapePainter {
 
-    IPaintStrategy paintStrategy;
+    private final IPaintStrategy paintStrategy;
 
     public ShapePainter (IPaintStrategy paintStrategy) {
         this.paintStrategy = paintStrategy;

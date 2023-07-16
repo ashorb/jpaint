@@ -1,4 +1,4 @@
-package view.interfaces;
+package controller.interfaces;
 
 public interface IShapeListObserver {
     void update();

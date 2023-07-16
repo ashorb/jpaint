@@ -1,16 +1,14 @@
 package model;
 
+import controller.ObserverSubject;
 import model.interfaces.IShape;
-import view.interfaces.IShapeListObserver;
-import view.interfaces.IShapeListSubject;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.List;
 
-final public class ShapeList implements IShapeListSubject {
+final public class ShapeList extends ObserverSubject {
     private final ArrayList<IShape> list;
-    private List<IShapeListObserver> shapeListObservers = new ArrayList<>();
+//    private List<IShapeListObserver> shapeListObservers = new ArrayList<>();
 
     public ShapeList() {
         list = new ArrayList<>();
@@ -32,18 +30,24 @@ final public class ShapeList implements IShapeListSubject {
         return list;
     }
 
-    @Override
-    public void registerObserver(IShapeListObserver observer) {
-        shapeListObservers.add(observer);
-    }
+//    @Override
+//    public void registerObserver(IShapeListObserver observer) {
+//        shapeListObservers.add(observer);
+//    }
+//
+//    private void notifyShapeListObservers(){
+//        for (var shapeListObserver : shapeListObservers){
+//            shapeListObserver.update();
+//        }
+//    }
 
     private void notifyShapeListObservers(){
-        for (var shapeListObserver : shapeListObservers){
+        for (var shapeListObserver : getShapeListObservers()){
             shapeListObserver.update();
         }
     }
 
-    public List<IShapeListObserver> getShapeListObservers() {
-        return shapeListObservers;
-    }
+//    public List<IShapeListObserver> getShapeListObservers() {
+//        return shapeListObservers;
+//    }
 }

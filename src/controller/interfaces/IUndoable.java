@@ -1,4 +1,4 @@
-package model.interfaces;
+package controller.interfaces;
 
 public interface IUndoable {
     void undo();
