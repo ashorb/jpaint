@@ -1,5 +1,6 @@
-package controller;
+package controller.commands;
 
+import controller.interfaces.ICommand;
 import model.Point;
 import model.ShapeFactory;
 import model.ShapeType;
@@ -9,13 +10,23 @@ import model.ShapeList;
 import model.persistence.ApplicationState;
 import model.persistence.CommandHistory;
 
-public class CreateShape implements IUndoable {
+public class CreateShape implements ICommand, IUndoable {
     private IShape ishape;
     private static ShapeList list;
+    private final ApplicationState appState;
+    private final ShapeList shapeList;
+    private final Point startPoint;
+    private final Point endPoint;
 
+    public CreateShape(ApplicationState appState, ShapeList shapeList, Point startPoint, Point endPoint) {
+        this.appState = appState;
+        this.shapeList = shapeList;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+    }
 
-    public void createShape(ApplicationState appState, ShapeList shapeList, Point startPoint, Point endPoint){
-
+    @Override
+    public void execute() {
         if (appState.getActiveShapeType().equals(ShapeType.RECTANGLE)) {
             ishape = ShapeFactory.createRectangle(appState, startPoint, endPoint);
         }
@@ -40,4 +51,5 @@ public class CreateShape implements IUndoable {
     public void redo() {
         list.add(ishape);
     }
+
 }

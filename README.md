@@ -12,8 +12,8 @@
 
 ### **Design patterns used:**
 
-**Command pattern used for undo/redo features:** 
-ICommand, UndoCommand, RedoCommand, JPaintController, CommandHistory, IUndoable
+**Command pattern used for Draw/Select/Move shapes and Undo/Redo features:** 
+ICommand, CreateShape, SelectShape, MoveShape, UndoCommand, RedoCommand, JPaintController, CommandHistory, IUndoable
 
 **Static Factory pattern used for creating shapes:**
 CreateShape, ShapeFactory, IShape, Shape, Rectangle, Ellipse, Triangle, Point

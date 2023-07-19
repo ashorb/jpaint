@@ -1,32 +1,34 @@
-package controller;
+package controller.commands;
 
+import controller.ObserverSubject;
+import controller.interfaces.ICommand;
 import model.Point;
 import model.interfaces.IShape;
 import controller.interfaces.IUndoable;
 import model.persistence.CommandHistory;
-import controller.interfaces.IShapeListObserver;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class MoveShape extends ObserverSubject implements IUndoable {
+public class MoveShape extends ObserverSubject implements ICommand, IUndoable {
     private final ArrayList<IShape> movedShapeList = new ArrayList<IShape>();
     private final ArrayList<IShape> selectedShapeList;
-//    private final List<IShapeListObserver> shapeListObservers;
+
     int deltaX;
     int deltaY;
 
+    private final Point startPoint;
+    private final Point endPoint;
 
-    public MoveShape(ArrayList<IShape> selectedShapeList, List<IShapeListObserver> shapeListObservers) {
+    public MoveShape(ArrayList<IShape> selectedShapeList, Point startPoint, Point endPoint) {
         this.selectedShapeList = selectedShapeList;
-//        this.shapeListObservers = shapeListObservers;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
     }
 
-    public void moveShape(Point startPoint, Point endPoint){
+    @Override
+    public void execute() {
         deltaX = endPoint.getX() - startPoint.getX();
         deltaY = endPoint.getY() - startPoint.getY();
-
-        System.out.println("here: " + selectedShapeList);
 
         for (IShape shape : selectedShapeList) {
             shape.move(deltaX, deltaY);
@@ -51,12 +53,6 @@ public class MoveShape extends ObserverSubject implements IUndoable {
         }
         notifyShapeListObservers();
     }
-
-//    private void notifyShapeListObservers(){
-//        for (var shapeListObserver : shapeListObservers){
-//            shapeListObserver.update();
-//        }
-//    }
 
     private void notifyShapeListObservers(){
         for (var shapeListObserver : getShapeListObservers()){
