@@ -33,7 +33,7 @@ public class ClickHandler extends MouseAdapter {
 
     @Override
     public void mouseReleased(MouseEvent e) { //location when mouse released
-        ICommand command = null;
+        ICommand command;
 
         endPoint.x = e.getX();
         endPoint.y = e.getY();
@@ -46,21 +46,22 @@ public class ClickHandler extends MouseAdapter {
         switch (appState.getActiveMouseMode()){
             case SELECT:
                 command = new SelectShape(appState, shapeList, startPoint, endPoint);
+                command.execute();
                 break;
             case MOVE:
                 if ((startPoint.getX() != endPoint.getX() || startPoint.getY() != endPoint.getY())
                         && !(shapeList.getSelectedList().isEmpty())) {
                     command = new MoveShape(shapeList.getSelectedList(), startPoint, endPoint);
+                    command.execute();
                 }
                 break;
             case DRAW:
                 if(width != 0 && height != 0) {
                     command = new CreateShape(appState, shapeList, startPoint, endPoint);
+                    command.execute();
                 }
                 break;
         }
-        command.execute();
-
 //        System.out.println("Released: x = " + endPoint.x + " y = " +  endPoint.y);
     }
 }

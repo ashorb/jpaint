@@ -20,8 +20,6 @@ public class Main {
         ObserverSubject observer = new ObserverSubject();
         observer.registerObserver(paintCanvas);
 
-//        shapeList.registerObserver(paintCanvas);
-
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
         ApplicationState appState = new ApplicationState(uiModule);
