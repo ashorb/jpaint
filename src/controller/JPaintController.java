@@ -1,8 +1,11 @@
 package controller;
 
+import controller.commands.CopyCommand;
 import controller.commands.RedoCommand;
 import controller.commands.UndoCommand;
 import controller.interfaces.IJPaintController;
+import model.Shape;
+import model.ShapeList;
 import model.interfaces.IApplicationState;
 import controller.interfaces.ICommand;
 import view.EventName;
@@ -12,10 +15,12 @@ public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
     private ICommand command;
+    private final ShapeList shapeList;
 
-    public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
+    public JPaintController(IUiModule uiModule, IApplicationState applicationState, ShapeList shapeList) {
         this.uiModule = uiModule;
         this.applicationState = applicationState;
+        this.shapeList = shapeList;
         setupEvents();
     }
 
@@ -45,6 +50,8 @@ public class JPaintController implements IJPaintController {
     }
 
     private void copy() {
+        command = new CopyCommand(shapeList);
+        command.execute();
     }
 
     private void paste() {

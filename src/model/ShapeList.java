@@ -9,6 +9,7 @@ import java.util.EmptyStackException;
 final public class ShapeList extends ObserverSubject {
     private final ArrayList<IShape> list;
     private final ArrayList<IShape> selectedList = new ArrayList<>();
+    private final ArrayList<IShape> copyList = new ArrayList<>();
 
     public ShapeList() {
         list = new ArrayList<>();
@@ -30,13 +31,17 @@ final public class ShapeList extends ObserverSubject {
         return list;
     }
 
+    public ArrayList<IShape> getSelectedList() {
+        return selectedList;
+    }
+
+    public ArrayList<IShape> getCopyList() {
+        return copyList;
+    }
+
     private void notifyShapeListObservers(){
         for (var shapeListObserver : getShapeListObservers()){
             shapeListObserver.update();
         }
-    }
-
-    public ArrayList<IShape> getSelectedList() {
-        return selectedList;
     }
 }
