@@ -47,12 +47,14 @@ public class ClickHandler extends MouseAdapter {
             case SELECT:
                 command = new SelectShape(appState, shapeList, startPoint, endPoint);
                 command.execute();
+                System.out.println(shapeList.getSelectedList());
                 break;
             case MOVE:
                 if ((startPoint.getX() != endPoint.getX() || startPoint.getY() != endPoint.getY())
                         && !(shapeList.getSelectedList().isEmpty())) {
                     command = new MoveShape(shapeList.getSelectedList(), startPoint, endPoint);
                     command.execute();
+                    System.out.println(shapeList.getSelectedList());
                 }
                 break;
             case DRAW:

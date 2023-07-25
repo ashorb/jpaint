@@ -8,12 +8,14 @@ import java.awt.*;
 public class ShapePainter {
 
     private final IPaintStrategy paintStrategy;
-
     public ShapePainter (IPaintStrategy paintStrategy) {
         this.paintStrategy = paintStrategy;
     }
-
     public void paintShape(IShape shape, Graphics2D graphics2d) {
+        if(shape.getIsSelected() == true){
+            paintStrategy.drawSelectionOutline(shape, graphics2d);
+        }
+
         if(shape.getShapeShadingType().equals(ShapeShadingType.FILLED_IN)){
             paintStrategy.drawFilledIn(shape, graphics2d);
         }

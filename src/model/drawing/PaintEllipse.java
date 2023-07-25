@@ -27,6 +27,14 @@ public class PaintEllipse implements IPaintStrategy {
         graphics2d.drawOval(shape.getX(), shape.getY(), shape.getWidth(), shape.getHeight());
     }
 
+    @Override
+    public void drawSelectionOutline(IShape shape, Graphics2D graphics2d) {
+        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
+        graphics2d.setStroke(stroke);
+        graphics2d.setColor(Color.MAGENTA);
+        graphics2d.drawOval(shape.getX() - 5, shape.getY() - 5, shape.getWidth() + 10, shape.getHeight() + 10);
+    }
+
 //    @Override
 //    public void moveShape() {
 //

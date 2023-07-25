@@ -11,6 +11,18 @@ public interface IShape {
     int getHeight();
     int[] getXPoints();
     int[] getYPoints();
+
+    public int getStartX();
+
+    public int getStartY();
+
+    public int getEndX();
+
+    public int getEndY();
+
+    void setIsSelected(Boolean bool);
+    Boolean getIsSelected();
+
     ShapeType getShapeType();
     ShapeShadingType getShapeShadingType();
     ShapeColor getPrimaryColor();

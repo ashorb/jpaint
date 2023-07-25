@@ -9,6 +9,21 @@ public abstract class Shape implements IShape{
     int startY;
     int endX;
     int endY;
+    public int getStartX() {
+        return startX;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public int getEndX() {
+        return endX;
+    }
+
+    public int getEndY() {
+        return endY;
+    }
     int width;
     int height;
     int[] xPoints;
@@ -17,6 +32,7 @@ public abstract class Shape implements IShape{
     ShapeShadingType shapeShadingType;
     ShapeColor primaryColor;
     ShapeColor secondaryColor;
+    Boolean isSelected = false;
 
     public Shape(ApplicationState appState, int startX, int startY, int endX, int endY){
         x = Math.min(startX, endX);
@@ -62,6 +78,15 @@ public abstract class Shape implements IShape{
     @Override
     public int[] getYPoints() {
         return yPoints;
+    }
+
+    @Override
+    public void setIsSelected(Boolean bool){
+        isSelected = bool;
+    }
+    @Override
+    public Boolean getIsSelected(){
+        return isSelected;
     }
 
     public ShapeType getShapeType() {

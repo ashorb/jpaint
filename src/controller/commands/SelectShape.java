@@ -1,5 +1,6 @@
 package controller.commands;
 
+import controller.ObserverSubject;
 import controller.interfaces.ICommand;
 import model.Point;
 import model.ShapeFactory;
@@ -7,7 +8,7 @@ import model.ShapeList;
 import model.interfaces.IShape;
 import model.persistence.ApplicationState;
 
-public class SelectShape implements ICommand {
+public class SelectShape extends ObserverSubject implements ICommand {
     private final ApplicationState appState;
     private final ShapeList shapeList;
     private final Point startPoint;
@@ -22,14 +23,19 @@ public class SelectShape implements ICommand {
 
     @Override
     public void execute() {
+        for (IShape shape: shapeList.getList()) {
+            shape.setIsSelected(false);
+        }
         shapeList.getSelectedList().clear();
         IShape selectionBox = ShapeFactory.createRectangle(appState, startPoint, endPoint);
 
         for (IShape shape: shapeList.getList()) {
             if (collision(selectionBox, shape)) {
+                shape.setIsSelected(true);
                 shapeList.getSelectedList().add(shape);
             }
         }
+        notifyShapeListObservers();
     }
 
     public boolean collision(IShape selectionBox, IShape shape){
@@ -42,6 +48,12 @@ public class SelectShape implements ICommand {
             return true;
         } else {
             return false;
+        }
+    }
+
+    private void notifyShapeListObservers(){
+        for (var shapeListObserver : getShapeListObservers()){
+            shapeListObserver.update();
         }
     }
 }
