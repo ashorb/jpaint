@@ -40,8 +40,6 @@ public class PaintCanvas extends JComponent implements IShapeListObserver {
                 paintStrategy = new PaintTriangle();
             }
 
-            System.out.println(s.getIsSelected());
-
             painter = new ShapePainter(paintStrategy);
             painter.paintShape(s, graphics2d);
         }

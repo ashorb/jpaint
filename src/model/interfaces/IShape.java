@@ -12,13 +12,13 @@ public interface IShape {
     int[] getXPoints();
     int[] getYPoints();
 
-    public int getStartX();
+    int getStartX();
 
-    public int getStartY();
+    int getStartY();
 
-    public int getEndX();
+    int getEndX();
 
-    public int getEndY();
+    int getEndY();
 
     void setIsSelected(Boolean bool);
     Boolean getIsSelected();
@@ -28,10 +28,8 @@ public interface IShape {
     ShapeColor getPrimaryColor();
     ShapeColor getSecondaryColor();
 
-    void draw();
     void move(int deltaX, int deltaY);
-    void paste();
-    void delete();
-
-
+//    void draw();
+//    void paste();
+//    void delete();
 }

@@ -2,23 +2,24 @@ package controller.commands;
 
 import controller.ObserverSubject;
 import controller.interfaces.ICommand;
-import model.Point;
-import model.ShapeFactory;
-import model.ShapeList;
+import model.*;
+import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
-import model.persistence.ApplicationState;
 
 public class SelectShape extends ObserverSubject implements ICommand {
-    private final ApplicationState appState;
+    private final IApplicationState appState;
     private final ShapeList shapeList;
     private final Point startPoint;
     private final Point endPoint;
+    ShapeAttributes shapeAttributes;
 
-    public SelectShape(ApplicationState appState, ShapeList shapeList, Point startPoint, Point endPoint) {
+
+    public SelectShape(IApplicationState appState, ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
         this.appState = appState;
         this.shapeList = shapeList;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
+        this.shapeAttributes = shapeAttributes;
     }
 
     @Override
@@ -27,7 +28,8 @@ public class SelectShape extends ObserverSubject implements ICommand {
             shape.setIsSelected(false);
         }
         shapeList.getSelectedList().clear();
-        IShape selectionBox = ShapeFactory.createRectangle(appState, startPoint, endPoint);
+
+        IShape selectionBox = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
 
         for (IShape shape: shapeList.getList()) {
             if (collision(selectionBox, shape)) {

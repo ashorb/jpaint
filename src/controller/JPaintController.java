@@ -1,6 +1,7 @@
 package controller;
 
 import controller.commands.CopyCommand;
+import controller.commands.PasteShape;
 import controller.commands.RedoCommand;
 import controller.commands.UndoCommand;
 import controller.interfaces.IJPaintController;
@@ -55,6 +56,8 @@ public class JPaintController implements IJPaintController {
     }
 
     private void paste() {
+        command = new PasteShape(applicationState, shapeList);
+        command.execute();
     }
 
     private void delete() {

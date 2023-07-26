@@ -27,6 +27,16 @@ final public class ShapeList extends ObserverSubject {
         notifyShapeListObservers();
     }
 
+    public void removePasted(ArrayList pastedList) {
+        if (list.isEmpty()) throw new EmptyStackException();
+        for(Object shape : pastedList){
+            if(list.contains(shape)){
+                list.remove(shape);
+            }
+        }
+        notifyShapeListObservers();
+    }
+
     public ArrayList<IShape> getList() {
         return list;
     }

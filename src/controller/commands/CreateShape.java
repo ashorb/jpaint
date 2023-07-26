@@ -1,40 +1,52 @@
 package controller.commands;
 
 import controller.interfaces.ICommand;
-import model.Point;
-import model.ShapeFactory;
-import model.ShapeType;
+import model.*;
 import controller.interfaces.IUndoable;
+import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
-import model.ShapeList;
 import model.persistence.ApplicationState;
 import model.persistence.CommandHistory;
 
 public class CreateShape implements ICommand, IUndoable {
     private IShape ishape;
     private static ShapeList list;
-    private final ApplicationState appState;
+    private final IApplicationState appState;
     private final ShapeList shapeList;
     private final Point startPoint;
     private final Point endPoint;
+    private final ShapeType shapeType;
+    ShapeColor primaryColor;
+    ShapeColor secondaryColor;
+    ShapeShadingType shadingType;
+    ShapeAttributes shapeAttributes;
 
-    public CreateShape(ApplicationState appState, ShapeList shapeList, Point startPoint, Point endPoint) {
+
+    public CreateShape(IApplicationState appState, ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
         this.appState = appState;
         this.shapeList = shapeList;
+
+        this.shapeType = shapeAttributes.getShapeType();
+        this.shadingType = shapeAttributes.getShapeShadingType();
+        this.primaryColor = shapeAttributes.getPrimaryColor();
+        this.secondaryColor = shapeAttributes.getSecondaryColor();
+
+        this.shapeAttributes = shapeAttributes;
+
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
 
     @Override
     public void execute() {
-        if (appState.getActiveShapeType().equals(ShapeType.RECTANGLE)) {
-            ishape = ShapeFactory.createRectangle(appState, startPoint, endPoint);
+        if (shapeType.equals(ShapeType.RECTANGLE)) {
+            ishape = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
         }
-        else if (appState.getActiveShapeType().equals(ShapeType.ELLIPSE)) {
-            ishape = ShapeFactory.createEllipse(appState, startPoint, endPoint);
+        else if (shapeType.equals(ShapeType.ELLIPSE)) {
+            ishape = ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint);
         }
-        else if (appState.getActiveShapeType().equals(ShapeType.TRIANGLE)){
-            ishape = ShapeFactory.createTriangle(appState, startPoint, endPoint);
+        else if (shapeType.equals(ShapeType.TRIANGLE)){
+            ishape = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
         }
 
         list = shapeList;

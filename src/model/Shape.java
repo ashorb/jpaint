@@ -1,6 +1,6 @@
 package model;
+import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
-import model.persistence.ApplicationState;
 
 public abstract class Shape implements IShape{
     int x;
@@ -34,7 +34,7 @@ public abstract class Shape implements IShape{
     ShapeColor secondaryColor;
     Boolean isSelected = false;
 
-    public Shape(ApplicationState appState, int startX, int startY, int endX, int endY){
+    public Shape(IApplicationState appState, ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY){
         x = Math.min(startX, endX);
         y = Math.min(startY, endY);
 
@@ -49,10 +49,11 @@ public abstract class Shape implements IShape{
         xPoints = new int[]{startX, endX, startX};
         yPoints = new int[]{startY, endY, endY};
 
-        shapeType = appState.getActiveShapeType();
-        shapeShadingType = appState.getActiveShapeShadingType();
-        primaryColor = appState.getActivePrimaryColor();
-        secondaryColor = appState.getActiveSecondaryColor();
+//        shapeType = appState.getActiveShapeType();
+        this.shapeType = shapeAttributes.getShapeType();
+        this.shapeShadingType = shapeAttributes.getShapeShadingType();
+        this.primaryColor = shapeAttributes.getPrimaryColor();
+        this.secondaryColor = shapeAttributes.getSecondaryColor();
     }
 
     public int getX() {
@@ -113,5 +114,12 @@ public abstract class Shape implements IShape{
 
         xPoints = new int[]{startX, endX, startX};
         yPoints = new int[]{startY, endY, endY};
-    };
+    }
+
+//    public void paste(){
+//        startX += 50;
+//        startY += 50;
+//        endX += 50;
+//        endY += 50;
+//    }
 }
