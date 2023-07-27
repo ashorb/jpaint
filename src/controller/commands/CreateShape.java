@@ -56,7 +56,7 @@ public class CreateShape implements ICommand, IUndoable {
 
     @Override
     public void undo() {
-        list.remove();
+        list.remove(ishape);
     }
 
     @Override

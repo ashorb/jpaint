@@ -9,7 +9,7 @@ import model.persistence.CommandHistory;
 
 import java.util.ArrayList;
 
-public class PasteShape implements ICommand, IUndoable {
+public class PasteCommand implements ICommand, IUndoable {
     private final ShapeList shapeList;
 
 
@@ -23,22 +23,20 @@ public class PasteShape implements ICommand, IUndoable {
 //    private int endX;
     private final Point startPoint = new Point();
     private final Point endPoint = new Point();
-    ICommand command;
+//    ICommand command;
     IApplicationState appState;
     ShapeAttributes shapeAttributes;
     IShape shapeToPaste;
 
 
-    public PasteShape(IApplicationState appState, ShapeList shapeList) {
+    public PasteCommand(IApplicationState appState, ShapeList shapeList) {
         this.shapeList = shapeList;
         this.appState = appState;
     }
 
     @Override
     public void execute() {
-
         if (!(shapeList.getCopyList().isEmpty())) {
-
             for (IShape shape : shapeList.getCopyList()) {
                 int offset = 50;
 //                startPoint.x = shape.getStartX() + offset;
@@ -90,9 +88,9 @@ public class PasteShape implements ICommand, IUndoable {
             }
 
             for (IShape shape : pastedShapeList){
-                if (!shapeList.getList().contains(shape)){
+//                if (!shapeList.getMasterList().contains(shape)){
                     shapeList.add(shape);
-                }
+//                }
             }
 
             CommandHistory.add(this);
@@ -104,7 +102,7 @@ public class PasteShape implements ICommand, IUndoable {
 //            command.execute();
         }
 
-//        for (IShape shape : shapeList.getList()){
+//        for (IShape shape : shapeList.getMasterList()){
 //            if (!shapeList.getSelectedList().contains(shape)){
 //                shapeList.getSelectedList().add(shape);
 //                startPoint.x = shape.getStartX() + offset;
@@ -115,17 +113,26 @@ public class PasteShape implements ICommand, IUndoable {
 //            }
 //        }
 
-        System.out.println("master list: " + shapeList.getList());
+        System.out.println();
+        System.out.println("master list: " + shapeList.getMasterList());
         System.out.println("selected list: " + shapeList.getSelectedList());
         System.out.println("copy list: " + shapeList.getCopyList());
         System.out.println("pasted list: " + pastedShapeList);
-
-
     }
 
     @Override
     public void undo() {
-        shapeList.removePasted(pastedShapeList);
+//        shapeList.removePasted(pastedShapeList);
+
+        for (IShape shape : pastedShapeList) {
+            shapeList.remove(shape);
+        }
+
+        System.out.println();
+        System.out.println("UNDO master list: " + shapeList.getMasterList());
+        System.out.println("UNDO selected list: " + shapeList.getSelectedList());
+        System.out.println("UNDO copy list: " + shapeList.getCopyList());
+        System.out.println("UNDO pasted list: " + pastedShapeList);
 
 //        pastedShapeList.clear();
 //        shapeList.remove();
@@ -136,8 +143,8 @@ public class PasteShape implements ICommand, IUndoable {
 //        }
 //
 //        for(IShape shape : pastedShapeList) {
-//            if (shapeList.getList().contains(shape)) {
-//                shapeList.getList().remove(shape);
+//            if (shapeList.getMasterList().contains(shape)) {
+//                shapeList.getMasterList().remove(shape);
 //            }
 //        }
     }
@@ -147,6 +154,11 @@ public class PasteShape implements ICommand, IUndoable {
         for (IShape shape : pastedShapeList) {
             shapeList.add(shape);
         }
-    }
 
+        System.out.println();
+        System.out.println("REDO master list: " + shapeList.getMasterList());
+        System.out.println("REDO selected list: " + shapeList.getSelectedList());
+        System.out.println("REDO copy list: " + shapeList.getCopyList());
+        System.out.println("REDO pasted list: " + pastedShapeList);
+    }
 }

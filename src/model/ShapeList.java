@@ -7,38 +7,44 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 
 final public class ShapeList extends ObserverSubject {
-    private final ArrayList<IShape> list;
+    private final ArrayList<IShape> masterList;
     private final ArrayList<IShape> selectedList = new ArrayList<>();
     private final ArrayList<IShape> copyList = new ArrayList<>();
 
     public ShapeList() {
-        list = new ArrayList<>();
+        masterList = new ArrayList<>();
     }
 
     public void add(IShape s) {
         if (s == null) throw new IllegalArgumentException();
-        list.add(s);
+        masterList.add(s);
         notifyShapeListObservers();
     }
 
-    public void remove() {
-        if (list.isEmpty()) throw new EmptyStackException();
-        list.remove(list.size()-1);
+//    public void remove() {
+//        if (masterList.isEmpty()) throw new EmptyStackException();
+//        masterList.remove(masterList.size()-1);
+//        notifyShapeListObservers();
+//    }
+
+    public void remove(IShape shape) {
+        if (masterList.isEmpty()) throw new EmptyStackException();
+        masterList.remove(shape);
         notifyShapeListObservers();
     }
 
-    public void removePasted(ArrayList pastedList) {
-        if (list.isEmpty()) throw new EmptyStackException();
-        for(Object shape : pastedList){
-            if(list.contains(shape)){
-                list.remove(shape);
-            }
-        }
-        notifyShapeListObservers();
-    }
+//    public void removePasted(ArrayList<IShape> pastedList) {
+//        if (masterList.isEmpty()) throw new EmptyStackException();
+//        for(IShape shape : pastedList){
+//            if(masterList.contains(shape)){
+//                masterList.remove(shape);
+//            }
+//        }
+//        notifyShapeListObservers();
+//    }
 
-    public ArrayList<IShape> getList() {
-        return list;
+    public ArrayList<IShape> getMasterList() {
+        return masterList;
     }
 
     public ArrayList<IShape> getSelectedList() {

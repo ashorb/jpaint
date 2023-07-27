@@ -30,7 +30,7 @@ public class PaintCanvas extends JComponent implements IShapeListObserver {
         Graphics2D graphics2d = (Graphics2D)g;
         ShapePainter painter;
 
-        for (IShape s : shapeList.getList()) {
+        for (IShape s : shapeList.getMasterList()) {
 
             if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
                 paintStrategy = new PaintRectangle();

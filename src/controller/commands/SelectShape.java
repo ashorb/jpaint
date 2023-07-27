@@ -24,14 +24,14 @@ public class SelectShape extends ObserverSubject implements ICommand {
 
     @Override
     public void execute() {
-        for (IShape shape: shapeList.getList()) {
+        for (IShape shape: shapeList.getMasterList()) {
             shape.setIsSelected(false);
         }
         shapeList.getSelectedList().clear();
 
         IShape selectionBox = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
 
-        for (IShape shape: shapeList.getList()) {
+        for (IShape shape: shapeList.getMasterList()) {
             if (collision(selectionBox, shape)) {
                 shape.setIsSelected(true);
                 shapeList.getSelectedList().add(shape);
