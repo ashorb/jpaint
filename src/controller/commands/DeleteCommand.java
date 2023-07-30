@@ -22,11 +22,12 @@ public class DeleteCommand implements ICommand, IUndoable {
     public void execute() {
         if (!(shapeList.getSelectedList().isEmpty())) {
             for (IShape shape : shapeList.getSelectedList()) {
+                shapeList.remove(shape);
+
                 shapeToDelete = shape;
-                deletedShapeList.add(shapeToDelete);
-            }
-            for (IShape shape : deletedShapeList){
-                    shapeList.remove(shape);
+                if(!(deletedShapeList.contains(shapeToDelete))) {
+                    deletedShapeList.add(shapeToDelete);
+                }
             }
             CommandHistory.add(this);
         }
@@ -40,6 +41,9 @@ public class DeleteCommand implements ICommand, IUndoable {
     @Override
     public void undo() {
         for (IShape shape : deletedShapeList) {
+            if (!shapeList.getSelectedList().contains(shape)){
+                shape.setIsSelected(false);
+            }
             shapeList.add(shape);
         }
 

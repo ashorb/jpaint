@@ -33,6 +33,9 @@ public class ShapeFactory {
         endX = endPoint.getX();
         endY = endPoint.getY();
 
-        return new Triangle(appState, shapeAttributes, startX, startY, endX, endY);
+        int[] xPoints = new int[]{startX, endX, startX};
+        int[] yPoints = new int[]{startY, endY, endY};
+
+        return new Triangle(appState, shapeAttributes, startX, startY, endX, endY, xPoints, yPoints);
     }
 }
