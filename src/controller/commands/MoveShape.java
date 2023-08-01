@@ -3,6 +3,7 @@ package controller.commands;
 import controller.ObserverSubject;
 import controller.interfaces.ICommand;
 import model.Point;
+import model.ShapeList;
 import model.interfaces.IShape;
 import controller.interfaces.IUndoable;
 import model.persistence.CommandHistory;
@@ -10,32 +11,46 @@ import model.persistence.CommandHistory;
 import java.util.ArrayList;
 
 public class MoveShape extends ObserverSubject implements ICommand, IUndoable {
-    private final ArrayList<IShape> movedShapeList = new ArrayList<IShape>();
-    private final ArrayList<IShape> selectedShapeList;
+    private final ArrayList<IShape> movedShapeList = new ArrayList<>();
+    private final ShapeList shapeList;
 
     int deltaX;
     int deltaY;
 
+    //flag that allows for only existing (non-deleted) shapes to be moved
+    boolean movableShapesFlag;
+
     private final Point startPoint;
     private final Point endPoint;
 
-    public MoveShape(ArrayList<IShape> selectedShapeList, Point startPoint, Point endPoint) {
-        this.selectedShapeList = selectedShapeList;
+    public MoveShape(ShapeList shapeList, Point startPoint, Point endPoint) {
+        this.shapeList = shapeList;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
     }
 
     @Override
     public void execute() {
+        movableShapesFlag = false;
+
         deltaX = endPoint.getX() - startPoint.getX();
         deltaY = endPoint.getY() - startPoint.getY();
 
-        for (IShape shape : selectedShapeList) {
-            shape.move(deltaX, deltaY);
-            movedShapeList.add(shape);
+        for (IShape shape : shapeList.getSelectedList()) {
+            if (shapeList.getMasterList().contains(shape)) { //check that shapes to be moved exist (not deleted)
+                movableShapesFlag = true;
+                shape.move(deltaX, deltaY);
+                movedShapeList.add(shape);
+            }
         }
-        CommandHistory.add(this);
-        notifyShapeListObservers();
+
+        if (movableShapesFlag == true) { //if flag is true (shapes have not been deleted), add to CommandHistory and notify observers
+            System.out.println("MOVE MASTER: " + shapeList.getMasterList());
+            System.out.println("MOVE MOVED: " + movedShapeList);
+
+            CommandHistory.add(this);
+            notifyShapeListObservers();
+        }
     }
 
     @Override

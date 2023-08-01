@@ -31,6 +31,7 @@ public class DeleteCommand implements ICommand, IUndoable {
             }
             CommandHistory.add(this);
         }
+
         System.out.println();
         System.out.println("master list: " + shapeList.getMasterList());
         System.out.println("selected list: " + shapeList.getSelectedList());

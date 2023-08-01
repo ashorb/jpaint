@@ -13,11 +13,15 @@ import model.interfaces.IShape;
 import controller.interfaces.IShapeListObserver;
 
 public class PaintCanvas extends JComponent implements IShapeListObserver {
-    private final ShapeList shapeList;
+    private static PaintCanvas paintCanvasInstance = new PaintCanvas();
+    private ShapeList shapeList;
     private IPaintStrategy paintStrategy;
 
-    public PaintCanvas(ShapeList shapeList) {
-        this.shapeList = shapeList;
+//    public PaintCanvas(ShapeList shapeList) {
+//        this.shapeList = shapeList;
+//    }
+
+    private PaintCanvas() {
     }
 
 //    public Graphics2D graphics2D() {
@@ -48,5 +52,16 @@ public class PaintCanvas extends JComponent implements IShapeListObserver {
     @Override
     public void update() {
         this.repaint();
+    }
+
+    public void setShapeList(ShapeList shapeList) {
+        this.shapeList = shapeList;
+    }
+
+    public static PaintCanvas getInstance() {
+        if (paintCanvasInstance == null) {
+            paintCanvasInstance = new PaintCanvas();
+        }
+        return paintCanvasInstance;
     }
 }

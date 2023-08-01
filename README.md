@@ -3,6 +3,10 @@
 
 ### **GitHub link:** https://github.com/ashorb/jpaint
 
+### **Check-in 3:**
+-Required features working. Selected shapes have a dashed outline and can be copied/pasted/deleted. 
+ Can undo/redo paste and delete.
+
 ### **Check-in 2:**
 -Required features working. Can draw rectangle, ellipses, and triangles of all three shading types.
  Can select and move single/multiple shapes and can undo/redo move.
@@ -24,3 +28,6 @@ PaintCanvas, IPaintStrategy, ShapePainter, PaintRectangle, PaintEllipse, PaintTr
 
 **Observer pattern used for decoupling PaintCanvas and repaint() from ShapeList, SelectShape, and MoveShape:**
 PaintCanvas, ShapeList, SelectShape, MoveShape, Main, ObserverSubject, IShapeListObserver, IShapeListSubject
+
+**Singleton pattern used for guaranteeing only a single instance of PaintCanvas:**
+PaintCanvas, Main
