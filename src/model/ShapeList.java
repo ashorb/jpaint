@@ -33,16 +33,6 @@ final public class ShapeList extends ObserverSubject {
         notifyShapeListObservers();
     }
 
-//    public void removePasted(ArrayList<IShape> pastedList) {
-//        if (masterList.isEmpty()) throw new EmptyStackException();
-//        for(IShape shape : pastedList){
-//            if(masterList.contains(shape)){
-//                masterList.remove(shape);
-//            }
-//        }
-//        notifyShapeListObservers();
-//    }
-
     public ArrayList<IShape> getMasterList() {
         return masterList;
     }

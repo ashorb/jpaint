@@ -7,7 +7,7 @@ import controller.interfaces.ICommand;
 import model.Point;
 import model.ShapeAttributes;
 import model.ShapeList;
-import model.ShapeType;
+//import model.ShapeType;
 import model.interfaces.IApplicationState;
 
 import java.awt.event.MouseAdapter;
@@ -17,7 +17,7 @@ public class ClickHandler extends MouseAdapter {
 
     private final IApplicationState appState;
     private final ShapeList shapeList;
-    private ShapeType shapeType;
+//    private ShapeType shapeType;
     private final Point startPoint = new Point();
     private final Point endPoint = new Point();
 
@@ -39,7 +39,7 @@ public class ClickHandler extends MouseAdapter {
     @Override
     public void mouseReleased(MouseEvent e) { //location when mouse released
         ICommand command;
-        shapeType = appState.getActiveShapeType();
+//        shapeType = appState.getActiveShapeType();
         shapeAttributes = new ShapeAttributes(appState);
 
         endPoint.x = e.getX();

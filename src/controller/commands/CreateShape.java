@@ -5,7 +5,6 @@ import model.*;
 import controller.interfaces.IUndoable;
 import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
-import model.persistence.ApplicationState;
 import model.persistence.CommandHistory;
 
 public class CreateShape implements ICommand, IUndoable {

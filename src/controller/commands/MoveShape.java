@@ -45,9 +45,6 @@ public class MoveShape extends ObserverSubject implements ICommand, IUndoable {
         }
 
         if (movableShapesFlag == true) { //if flag is true (shapes have not been deleted), add to CommandHistory and notify observers
-            System.out.println("MOVE MASTER: " + shapeList.getMasterList());
-            System.out.println("MOVE MOVED: " + movedShapeList);
-
             CommandHistory.add(this);
             notifyShapeListObservers();
         }
