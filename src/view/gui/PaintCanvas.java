@@ -13,7 +13,7 @@ import model.interfaces.IShape;
 import controller.interfaces.IShapeListObserver;
 
 public class PaintCanvas extends JComponent implements IShapeListObserver {
-    private static PaintCanvas paintCanvasInstance = new PaintCanvas();
+    private static PaintCanvas paintCanvasInstance;
     private ShapeList shapeList;
     private IPaintStrategy paintStrategy;
 
@@ -30,22 +30,26 @@ public class PaintCanvas extends JComponent implements IShapeListObserver {
 
     @Override
     public void paint(Graphics g) {
-
         Graphics2D graphics2d = (Graphics2D)g;
-        ShapePainter painter;
+//        ShapePainter painter;
 
         for (IShape s : shapeList.getMasterList()) {
+//            if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
+//                paintStrategy = new PaintRectangle();
+//            } else if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
+//                paintStrategy = new PaintEllipse();
+//            } else if (s.getShapeType().equals(ShapeType.TRIANGLE)) {
+//                paintStrategy = new PaintTriangle();
+//            }
+//
+//            painter = new ShapePainter(paintStrategy);
+//            painter.paintShape(s, graphics2d);
 
-            if (s.getShapeType().equals(ShapeType.RECTANGLE)) {
-                paintStrategy = new PaintRectangle();
-            } else if (s.getShapeType().equals(ShapeType.ELLIPSE)) {
-                paintStrategy = new PaintEllipse();
-            } else if (s.getShapeType().equals(ShapeType.TRIANGLE)) {
-                paintStrategy = new PaintTriangle();
+//            s.draw(paintStrategy, graphics2d);
+            s.draw(graphics2d);
+            if (s.getIsSelected() == true){
+                s.select(graphics2d);
             }
-
-            painter = new ShapePainter(paintStrategy);
-            painter.paintShape(s, graphics2d);
         }
     }
 

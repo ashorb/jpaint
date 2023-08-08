@@ -2,13 +2,15 @@ package controller;
 
 import controller.commands.*;
 import controller.interfaces.IJPaintController;
+import model.GroupedShapes;
+import model.GroupedShapesFactory;
 import model.ShapeList;
 import model.interfaces.IApplicationState;
 import controller.interfaces.ICommand;
 import view.EventName;
 import view.interfaces.IUiModule;
 
-public class JPaintController implements IJPaintController {
+public class JPaintController extends ObserverSubject implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
     private ICommand command;
@@ -62,8 +64,17 @@ public class JPaintController implements IJPaintController {
     }
 
     private void group() {
+        GroupedShapesFactory groupedShapes = new GroupedShapesFactory();
+        groupedShapes.getGroupedShapes(shapeList);
+//        notifyShapeListObservers();
     }
 
     private void ungroup() {
     }
+
+//    private void notifyShapeListObservers(){
+//        for (var shapeListObserver : getShapeListObservers()){
+//            shapeListObserver.update();
+//        }
+//    }
 }

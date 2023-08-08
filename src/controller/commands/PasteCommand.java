@@ -39,12 +39,14 @@ public class PasteCommand implements ICommand, IUndoable {
                 endPoint.x = shapeToPaste.getEndX() + offset;
                 endPoint.y = shapeToPaste.getEndY() + offset;
 
-                if (shape.getShapeType().equals(ShapeType.RECTANGLE)) {
+                if (shape.getIShapeType().equals("RECTANGLE")) {
                     shapeToPaste = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
-                } else if (shape.getShapeType().equals(ShapeType.ELLIPSE)) {
+                } else if (shape.getIShapeType().equals("ELLIPSE")) {
                     shapeToPaste = ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint);
-                } else if (shape.getShapeType().equals(ShapeType.TRIANGLE)) {
+                } else if (shape.getIShapeType().equals("TRIANGLE")) {
                     shapeToPaste = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
+                } else if (shape.getIShapeType().equals("GROUP")) {
+
                 }
 
                 pastedShapeList.add(shapeToPaste);

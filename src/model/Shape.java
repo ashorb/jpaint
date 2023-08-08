@@ -1,10 +1,19 @@
 package model;
+import model.drawing.PaintRectangle;
+import model.drawing.ShapePainter;
 import model.interfaces.IApplicationState;
+import model.interfaces.IPaintStrategy;
 import model.interfaces.IShape;
+
+import java.awt.*;
 
 public abstract class Shape implements IShape{
     int x;
     int y;
+
+    int largestX;
+    int largestY;
+
     int startX;
     int startY;
     int endX;
@@ -24,6 +33,9 @@ public abstract class Shape implements IShape{
     public Shape(IApplicationState appState, ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY){
         x = Math.min(startX, endX);
         y = Math.min(startY, endY);
+
+        largestX = Math.max(startX, endX);
+        largestY = Math.max(startY, endY);
 
         this.startX = startX;
         this.startY = startY;
@@ -53,6 +65,15 @@ public abstract class Shape implements IShape{
     @Override
     public int getY() {
         return y;
+    }
+
+    @Override
+    public int getLargestX() {
+        return largestX;
+    }
+    @Override
+    public int getLargestY() {
+        return largestY;
     }
 
     @Override
@@ -119,4 +140,19 @@ public abstract class Shape implements IShape{
 //        xPoints = new int[]{startX, endX, startX};
 //        yPoints = new int[]{startY, endY, endY};
 //    }
+//
+//    @Override
+//    public void draw(IPaintStrategy paintStrategy, Graphics2D graphics2D) {
+//        ShapePainter painter = new ShapePainter(paintStrategy);
+//        painter.paintShape(this, graphics2D);
+//    }
+
+    public int getMinCoordinate() {
+        return 0;
+    }
+
+    public int getMaxCoordinate() {
+        return 0;
+    }
+
 }
