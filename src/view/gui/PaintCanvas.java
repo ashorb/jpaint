@@ -24,7 +24,7 @@ public class PaintCanvas extends JComponent implements IShapeListObserver {
     private PaintCanvas() {
     }
 
-//    public Graphics2D graphics2D() {
+//    public Graphics2D getGraphics2D() {
 //        return (Graphics2D)getGraphics();
 //    }
 

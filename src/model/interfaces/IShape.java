@@ -42,12 +42,16 @@ public interface IShape {
 //    void draw(IPaintStrategy paintStrategy, Graphics2D graphics2D);
     void draw(Graphics2D graphics2D);
 
+    default void setGroupCoordinates(){
+
+    }
+
     void select(Graphics2D graphics2D);
 //    void move();
 
-    public int getMinCoordinate();
-
-    public int getMaxCoordinate();
+//    public int getMinCoordinate();
+//
+//    public int getMaxCoordinate();
 
     String getIShapeType();
 

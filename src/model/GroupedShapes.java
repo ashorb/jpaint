@@ -29,10 +29,22 @@ public class GroupedShapes implements IShape {
     int width;
     int height;
     Boolean isSelected = false;
-    String iShapeType;
+    int offset = 0;
+    Point startPoint;
+    Point endPoint;
 
     public GroupedShapes() {
         this.children = new ArrayList<>();
+    }
+    public GroupedShapes(Point startPoint, Point endPoint, int offset) {
+        this.children = new ArrayList<>();
+        this.startX = startPoint.getX();
+        this.startY = startPoint.getY();
+        this.endX = endPoint.getX();
+        this.endY = endPoint.getY();
+        this.offset = offset;
+
+        System.out.println("in startPtX: " + startPoint.getX());
     }
 
     @Override
@@ -98,15 +110,9 @@ public class GroupedShapes implements IShape {
         endX = endX + deltaX;
         endY = endY + deltaY;
 
-//        for (IShape shape : children){
-//            x = x + deltaX;
-//            y = y + deltaY;
-//
-//            startX += deltaX;
-//            startY += deltaY;
-//            endX = endX + deltaX;
-//            endY = endY + deltaY;
-//        }
+        for (IShape shape : children){
+            shape.move(deltaX, deltaY);
+        }
     }
 
 //    @Override
@@ -125,10 +131,10 @@ public class GroupedShapes implements IShape {
 
     @Override
     public void draw(Graphics2D graphics2d){
-
         for (IShape shape : children) {
             drawRecursive(shape, graphics2d);
         }
+        System.out.println("children: " + children);
     }
 
     public void drawRecursive(IShape shape, Graphics2D graphics2D) {
@@ -156,47 +162,9 @@ public class GroupedShapes implements IShape {
                 painter = new ShapePainter(paintStrategy);
                 painter.paintShape(shape, graphics2D);
             }
+        System.out.println("in here: " + this);
 //        this.setIsSelected(true);
     }
-
-
-//    public void drawRecursive(IShape shape, Graphics2D graphics2D) {
-//        IPaintStrategy paintStrategy = null;
-//        for (IShape shape : children) {
-//            if(getIShapeType().equals("GROUP")) {
-//                for (IShape g : children) {
-//                    if (g.getIShapeType().equals("RECTANGLE")) {
-//                        paintStrategy = new PaintRectangle();
-//                    } else if (g.getIShapeType().equals("ELLIPSE")) {
-//                        paintStrategy = new PaintEllipse();
-//                    } else if (g.getIShapeType().equals("TRIANGLE")) {
-//                        paintStrategy = new PaintTriangle();
-//                    }
-//
-//                    ShapePainter painter = new ShapePainter(paintStrategy);
-//                    painter.paintShape(g, graphics2D);
-//
-//                }
-//            } else {
-//                if (shape.getIShapeType().equals("RECTANGLE")) {
-//                    paintStrategy = new PaintRectangle();
-//                } else if (shape.getIShapeType().equals("ELLIPSE")) {
-//                    paintStrategy = new PaintEllipse();
-//                } else if (shape.getIShapeType().equals("TRIANGLE")) {
-//                    paintStrategy = new PaintTriangle();
-//                }
-//
-//                shape.setIsSelected(false);
-//                ShapePainter painter = new ShapePainter(paintStrategy);
-//                painter.paintShape(shape, graphics2D);
-//            }
-//
-//
-//
-//
-//        }
-//        select(graphics2D);
-//    }
 
     public void addIShape(IShape shape) {
         children.add(shape);
@@ -208,7 +176,8 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             minCoordinate = Math.min(minCoordinate, child.getX());
         }
-        System.out.println(minCoordinate);
+
+        System.out.println("start x: " + minCoordinate);
         startX = minCoordinate;
         return minCoordinate;
     }
@@ -218,7 +187,7 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             minCoordinate = Math.min(minCoordinate, child.getY());
         }
-        System.out.println(minCoordinate);
+        System.out.println("start y: " + minCoordinate);
         startY = minCoordinate;
         return minCoordinate;
     }
@@ -228,7 +197,7 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             maxCoordinate = Math.max(maxCoordinate, child.getLargestX());
         }
-        System.out.println(maxCoordinate);
+        System.out.println("End x: " + maxCoordinate);
         endX = maxCoordinate;
         return maxCoordinate;
     }
@@ -238,35 +207,18 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             maxCoordinate = Math.max(maxCoordinate, child.getLargestY());
         }
-        System.out.println(maxCoordinate);
+        System.out.println("End y: " + maxCoordinate);
         endY = maxCoordinate;
         return maxCoordinate;
     }
-    public int getMinCoordinate() {
-        Integer minCoordinate = Integer.MAX_VALUE;
-        for (IShape child : children){
-            minCoordinate = Math.min(minCoordinate, child.getMinCoordinate());
-        }
-//        System.out.println(minCoordinate);
-        return minCoordinate;
-    }
 
-    public int getMaxCoordinate() {
-        Integer maxCoordinate = Integer.MIN_VALUE;
-        for (IShape child : children){
-            maxCoordinate = Math.max(maxCoordinate, child.getMaxCoordinate());
-        }
-//        System.out.println(maxCoordinate);
-        return maxCoordinate;
-    }
-
+    @Override
     public void setGroupCoordinates(){
+        x = Math.min(getStartX(), getEndX()) + offset;
+        y = Math.min(getStartY(), getEndY())  + offset;
 
-        x = Math.min(getStartX(), getEndX());
-        y = Math.min(getStartY(), getEndY());
-
-        largestX = Math.max(startX, endX);
-        largestY = Math.max(startY, endY);
+        largestX = Math.max(startX, endX)  + offset;
+        largestY = Math.max(startY, endY)  + offset;
 
         width = Math.abs(getEndX() - getStartX());
         height = Math.abs(getEndY() - getStartY());

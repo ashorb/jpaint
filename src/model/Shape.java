@@ -147,12 +147,12 @@ public abstract class Shape implements IShape{
 //        painter.paintShape(this, graphics2D);
 //    }
 
-    public int getMinCoordinate() {
-        return 0;
-    }
-
-    public int getMaxCoordinate() {
-        return 0;
-    }
+//    public int getMinCoordinate() {
+//        return 0;
+//    }
+//
+//    public int getMaxCoordinate() {
+//        return 0;
+//    }
 
 }
