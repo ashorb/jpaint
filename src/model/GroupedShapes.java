@@ -1,6 +1,5 @@
 package model;
 
-import controller.commands.SelectShape;
 import model.drawing.PaintEllipse;
 import model.drawing.PaintRectangle;
 import model.drawing.PaintTriangle;
@@ -15,9 +14,6 @@ import java.util.List;
 public class GroupedShapes implements IShape {
 
     private final List<IShape> children;
-    public List<IShape> getChildren() {
-        return children;
-    }
 
     int x;
     int y;
@@ -52,6 +48,13 @@ public class GroupedShapes implements IShape {
         this.offset = offset;
     }
 
+    public List<IShape> getChildren() {
+        return children;
+    }
+    @Override
+    public String getIShapeType() {
+        return "GROUP";
+    }
     @Override
     public int getX() {
         return x;
@@ -60,7 +63,6 @@ public class GroupedShapes implements IShape {
     public int getY() {
         return y;
     }
-
     @Override
     public int getLargestX() {
         return largestX;
@@ -69,8 +71,6 @@ public class GroupedShapes implements IShape {
     public int getLargestY() {
         return largestY;
     }
-
-
     @Override
     public int getWidth() {
         return width;
@@ -79,7 +79,6 @@ public class GroupedShapes implements IShape {
     public int getHeight() {
         return height;
     }
-
     @Override
     public void setIsSelected(Boolean bool){
         isSelected = bool;
@@ -90,34 +89,55 @@ public class GroupedShapes implements IShape {
     }
     @Override
     public ShapeType getShapeType() {
-        return null;
+        return ShapeType.RECTANGLE;
     }
     @Override
     public ShapeShadingType getShapeShadingType() {
-        return null;
+        return ShapeShadingType.FILLED_IN;
     }
     @Override
     public ShapeColor getPrimaryColor() {
-        return null;
+        return ShapeColor.BLUE;
     }
     @Override
     public ShapeColor getSecondaryColor() {
-        return null;
+        return ShapeColor.GREEN;
     }
-
     @Override
-    public void move(int deltaX, int deltaY) {
-        for (IShape shape : children){
-            shape.move(deltaX, deltaY);
+    public int getStartX() {
+        Integer minCoordinate = Integer.MAX_VALUE;
+        for (IShape child : children){
+            minCoordinate = Math.min(minCoordinate, child.getX());
         }
-
-        x = x + deltaX;
-        y = y + deltaY;
-
-        startX += deltaX;
-        startY += deltaY;
-        endX = endX + deltaX;
-        endY = endY + deltaY;
+        startX = minCoordinate;
+        return minCoordinate;
+    }
+    @Override
+    public int getStartY() {
+        Integer minCoordinate = Integer.MAX_VALUE;
+        for (IShape child : children){
+            minCoordinate = Math.min(minCoordinate, child.getY());
+        }
+        startY = minCoordinate;
+        return minCoordinate;
+    }
+    @Override
+    public int getEndX() {
+        Integer maxCoordinate = Integer.MIN_VALUE;
+        for (IShape child : children){
+            maxCoordinate = Math.max(maxCoordinate, child.getLargestX());
+        }
+        endX = maxCoordinate;
+        return maxCoordinate;
+    }
+    @Override
+    public int getEndY() {
+        Integer maxCoordinate = Integer.MIN_VALUE;
+        for (IShape child : children){
+            maxCoordinate = Math.max(maxCoordinate, child.getLargestY());
+        }
+        endY = maxCoordinate;
+        return maxCoordinate;
     }
 
     @Override
@@ -161,7 +181,6 @@ public class GroupedShapes implements IShape {
             painter = new ShapePainter(paintStrategy);
             painter.paintShape(shape, graphics2D);
         }
-//        this.setIsSelected(true);
     }
 
     public void addIShape(IShape shape) {
@@ -169,43 +188,22 @@ public class GroupedShapes implements IShape {
     }
 
     @Override
-    public int getStartX() {
-        Integer minCoordinate = Integer.MAX_VALUE;
-        for (IShape child : children){
-            minCoordinate = Math.min(minCoordinate, child.getX());
+    public void move(int deltaX, int deltaY) {
+        for (IShape shape : children){
+            shape.move(deltaX, deltaY);
         }
-        startX = minCoordinate;
-        return minCoordinate;
-    }
-    @Override
-    public int getStartY() {
-        Integer minCoordinate = Integer.MAX_VALUE;
-        for (IShape child : children){
-            minCoordinate = Math.min(minCoordinate, child.getY());
-        }
-        startY = minCoordinate;
-        return minCoordinate;
-    }
-    @Override
-    public int getEndX() {
-        Integer maxCoordinate = Integer.MIN_VALUE;
-        for (IShape child : children){
-            maxCoordinate = Math.max(maxCoordinate, child.getLargestX());
-        }
-        endX = maxCoordinate;
-        return maxCoordinate;
-    }
-    @Override
-    public int getEndY() {
-        Integer maxCoordinate = Integer.MIN_VALUE;
-        for (IShape child : children){
-            maxCoordinate = Math.max(maxCoordinate, child.getLargestY());
-        }
-        endY = maxCoordinate;
-        return maxCoordinate;
-    }
 
+        x = x + deltaX;
+        y = y + deltaY;
 
+        largestX += deltaX;
+        largestY += deltaY;
+
+        startX += deltaX;
+        startY += deltaY;
+        endX = endX + deltaX;
+        endY = endY + deltaY;
+    }
 
     @Override
     public void select(Graphics2D graphics2d) {
@@ -213,10 +211,5 @@ public class GroupedShapes implements IShape {
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.MAGENTA);
         graphics2d.drawRect(getX() - 5, getY() - 5, getWidth() + 10, getHeight() + 10);
-    }
-
-    @Override
-    public String getIShapeType() {
-        return "GROUP";
     }
 }

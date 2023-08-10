@@ -14,6 +14,7 @@ class Triangle extends Shape {
     public Triangle(IApplicationState appState, ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY, int[] xPoints, int[] yPoints) {
         super(appState, shapeAttributes, startX, startY, endX, endY);
 
+
         this.xPoints = xPoints;
         this.yPoints = yPoints;
     }

@@ -17,53 +17,54 @@ public class GroupedShapesFactory extends ObserverSubject implements IUndoable {
         this.shapeList = shapeList;
     }
 
-
-
     public void getGroupedShapes(ShapeList shapeList){
 
         group = new GroupedShapes();
-
-        System.out.println(shapeList.getMasterList());
 
         for (IShape shape : shapeList.getSelectedList()){
             shapeList.getMasterList().remove(shape);
             group.addIShape(shape);
         }
 
-
         shapeList.getMasterList().add(group);
-
-//        group.setGroupCoordinates();
-
-//        System.out.println("Factory getGroupedShapes (children): " + group.getChildren());
-//        System.out.println("Factory getGroupedShapes (Selected): " + shapeList.getSelectedList());
-//        System.out.println("Factory getGroupedShapes (Master): " + shapeList.getMasterList());
-
         groups.add(group);
-
         shapeList.getSelectedList().clear();
         group.setIsSelected(true);
         shapeList.getSelectedList().add(group);
-
-//        System.out.println("Factory getGroupedShapes (Selected): " + shapeList.getSelectedList());
-
-
-
-        notifyShapeListObservers();
         CommandHistory.add(this);
+        notifyShapeListObservers();
     }
 
 
     @Override
     public void undo() {
         for (IShape group : groups) {
-            shapeList.remove(group);
+            System.out.println("children undo: " + group.getChildren());
+            if (shapeList.getMasterList().contains(group)) {
+                for (IShape shape : group.getChildren()) {
+                    if (!shapeList.getMasterList().contains(shape)) {
+                        shapeList.add(shape);
+                        notifyShapeListObservers();
+                    }
+                }
+
+                shapeList.remove(group);
+                notifyShapeListObservers();
+            }
         }
+
     }
 
     @Override
     public void redo() {
         for (IShape group : groups) {
+            System.out.println("children redo: " + group.getChildren());
+            for (IShape child : group.getChildren()){
+                    child.setIsSelected(false);
+                if (shapeList.getMasterList().contains(child)){
+                    shapeList.remove(child);
+                }
+            }
             shapeList.add(group);
         }
     }

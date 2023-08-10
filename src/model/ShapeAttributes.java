@@ -33,7 +33,4 @@ public class ShapeAttributes {
     public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
-
-
-
 }

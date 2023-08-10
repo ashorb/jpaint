@@ -4,16 +4,13 @@
 ### **GitHub link:** https://github.com/ashorb/jpaint
 
 ### **Check-in 4:**
--I've had major issues when attempting to implement grouping/ungrouping features.
 <br/>**Working:**
-<br/>-Can group shapes. Grouped shapes can be selected and moved.
+<br/>-Can group shapes. Grouped shapes can be selected, moved, copied, and deleted.
 <br/>-Can undo/redo delete with groups.
 
 <br/>**Not working:**
 <br/>-Paste not working with groups.
-<br/>-Delete sometimes does not remove all grouped shapes.
-<br/>-Undo/redo not working correctly. Undo/redo does not undo the creation of a group, but gets rid of all shapes in a group. 
-Selection box reverts to original grouping size on undo/redo.
+<br/>-Delete does not work after undoing/redoing a grouping.
 
 
 ### **Check-in 3:**
