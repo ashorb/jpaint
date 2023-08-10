@@ -1,5 +1,6 @@
 package model;
 
+import controller.commands.SelectShape;
 import model.drawing.PaintEllipse;
 import model.drawing.PaintRectangle;
 import model.drawing.PaintTriangle;
@@ -35,6 +36,12 @@ public class GroupedShapes implements IShape {
 
     public GroupedShapes() {
         this.children = new ArrayList<>();
+        startPoint = new Point();
+        endPoint = new Point();
+        startPoint.x = x;
+        startPoint.y = y;
+        endPoint.x = largestX;
+        endPoint.y = largestY;
     }
     public GroupedShapes(Point startPoint, Point endPoint, int offset) {
         this.children = new ArrayList<>();
@@ -43,8 +50,6 @@ public class GroupedShapes implements IShape {
         this.endX = endPoint.getX();
         this.endY = endPoint.getY();
         this.offset = offset;
-
-        System.out.println("in startPtX: " + startPoint.getX());
     }
 
     @Override
@@ -102,6 +107,10 @@ public class GroupedShapes implements IShape {
 
     @Override
     public void move(int deltaX, int deltaY) {
+        for (IShape shape : children){
+            shape.move(deltaX, deltaY);
+        }
+
         x = x + deltaX;
         y = y + deltaY;
 
@@ -109,60 +118,49 @@ public class GroupedShapes implements IShape {
         startY += deltaY;
         endX = endX + deltaX;
         endY = endY + deltaY;
-
-        for (IShape shape : children){
-            shape.move(deltaX, deltaY);
-        }
     }
 
-//    @Override
-//    public void draw(IPaintStrategy paintStrategy, Graphics2D graphics2D) {
-//        ShapePainter painter = new ShapePainter(paintStrategy);
-//        for (IShape shape : children) {
-//            painter.paintShape(shape, graphics2D);
-//        }
-//    }
-//    @Override
-//    public void draw(Graphics2D graphics2d){
-//        drawRecursive(IShape shape, graphics2d);
-//    }
+    @Override
+    public void setGroupCoordinates(){
+        x = Math.min(getStartX(), getEndX());
+        y = Math.min(getStartY(), getEndY());
 
-    IShape iShape;
+        largestX = Math.max(getStartX(), getEndX());
+        largestY = Math.max(getStartY(), getEndY());
+
+        width = Math.abs(getEndX() - getStartX());
+        height = Math.abs(getEndY() - getStartY());
+    }
 
     @Override
     public void draw(Graphics2D graphics2d){
         for (IShape shape : children) {
             drawRecursive(shape, graphics2d);
         }
-        System.out.println("children: " + children);
+        setGroupCoordinates();
     }
 
     public void drawRecursive(IShape shape, Graphics2D graphics2D) {
         IPaintStrategy paintStrategy = null;
         ShapePainter painter;
-//        for (IShape shape : children) {
 
-            if(shape.getIShapeType().equals("GROUP")) {
-                System.out.println("group children: " + shape.getChildren());
-                for (IShape s : shape.getChildren()){
-                    drawRecursive(s, graphics2D);
-
-                }
-
-            } else {
-                if (shape.getIShapeType().equals("RECTANGLE")) {
-                    paintStrategy = new PaintRectangle();
-                } else if (shape.getIShapeType().equals("ELLIPSE")) {
-                    paintStrategy = new PaintEllipse();
-                } else if (shape.getIShapeType().equals("TRIANGLE")) {
-                    paintStrategy = new PaintTriangle();
-                }
-
-                shape.setIsSelected(false);
-                painter = new ShapePainter(paintStrategy);
-                painter.paintShape(shape, graphics2D);
+        if(shape.getIShapeType().equals("GROUP")) {
+            for (IShape s : shape.getChildren()){
+                drawRecursive(s, graphics2D);
             }
-        System.out.println("in here: " + this);
+
+        } else {
+            if (shape.getIShapeType().equals("RECTANGLE")) {
+                paintStrategy = new PaintRectangle();
+            } else if (shape.getIShapeType().equals("ELLIPSE")) {
+                paintStrategy = new PaintEllipse();
+            } else if (shape.getIShapeType().equals("TRIANGLE")) {
+                paintStrategy = new PaintTriangle();
+            }
+            shape.setIsSelected(false);
+            painter = new ShapePainter(paintStrategy);
+            painter.paintShape(shape, graphics2D);
+        }
 //        this.setIsSelected(true);
     }
 
@@ -176,8 +174,6 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             minCoordinate = Math.min(minCoordinate, child.getX());
         }
-
-        System.out.println("start x: " + minCoordinate);
         startX = minCoordinate;
         return minCoordinate;
     }
@@ -187,7 +183,6 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             minCoordinate = Math.min(minCoordinate, child.getY());
         }
-        System.out.println("start y: " + minCoordinate);
         startY = minCoordinate;
         return minCoordinate;
     }
@@ -197,7 +192,6 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             maxCoordinate = Math.max(maxCoordinate, child.getLargestX());
         }
-        System.out.println("End x: " + maxCoordinate);
         endX = maxCoordinate;
         return maxCoordinate;
     }
@@ -207,22 +201,11 @@ public class GroupedShapes implements IShape {
         for (IShape child : children){
             maxCoordinate = Math.max(maxCoordinate, child.getLargestY());
         }
-        System.out.println("End y: " + maxCoordinate);
         endY = maxCoordinate;
         return maxCoordinate;
     }
 
-    @Override
-    public void setGroupCoordinates(){
-        x = Math.min(getStartX(), getEndX()) + offset;
-        y = Math.min(getStartY(), getEndY())  + offset;
 
-        largestX = Math.max(startX, endX)  + offset;
-        largestY = Math.max(startY, endY)  + offset;
-
-        width = Math.abs(getEndX() - getStartX());
-        height = Math.abs(getEndY() - getStartY());
-    }
 
     @Override
     public void select(Graphics2D graphics2d) {

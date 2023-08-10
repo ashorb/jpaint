@@ -1,6 +1,7 @@
 package model;
 
 import controller.ObserverSubject;
+import controller.commands.SelectShape;
 import controller.interfaces.IUndoable;
 import model.interfaces.IShape;
 import model.persistence.CommandHistory;
@@ -29,29 +30,27 @@ public class GroupedShapesFactory extends ObserverSubject implements IUndoable {
             group.addIShape(shape);
         }
 
+
         shapeList.getMasterList().add(group);
 
-        group.setGroupCoordinates();
+//        group.setGroupCoordinates();
 
-        System.out.println("Children: " + group.getChildren());
-
-        System.out.println("Selected: " + shapeList.getSelectedList());
-        System.out.println("Master: " + shapeList.getMasterList());
-
-        group.setIsSelected(true);
-        System.out.println("Selected: " + shapeList.getSelectedList());
+//        System.out.println("Factory getGroupedShapes (children): " + group.getChildren());
+//        System.out.println("Factory getGroupedShapes (Selected): " + shapeList.getSelectedList());
+//        System.out.println("Factory getGroupedShapes (Master): " + shapeList.getMasterList());
 
         groups.add(group);
 
+        shapeList.getSelectedList().clear();
+        group.setIsSelected(true);
+        shapeList.getSelectedList().add(group);
+
+//        System.out.println("Factory getGroupedShapes (Selected): " + shapeList.getSelectedList());
+
+
+
         notifyShapeListObservers();
         CommandHistory.add(this);
-
-//        for (IShape shape : shapeList.getMasterList()){
-//            shape.getStartX();
-//            shape.getStartY();
-//            shape.getEndX();
-//            shape.getEndY();
-//        }
     }
 
 

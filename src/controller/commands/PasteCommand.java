@@ -46,24 +46,17 @@ public class PasteCommand implements ICommand, IUndoable {
                 } else if (shape.getIShapeType().equals("TRIANGLE")) {
                     shapeToPaste = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
                 } else if (shape.getIShapeType().equals("GROUP")) {
+
                     shapeToPaste = new GroupedShapes(startPoint, endPoint, offset);
                     shapeToPaste.move(50,50);
                     shapeToPaste.setGroupCoordinates();
-                    System.out.println(shapeToPaste.getStartX());
-                    System.out.println("shape children: " + shape.getChildren());
-                    System.out.println("stp children: " + shapeToPaste.getChildren());
-                }
 
+                }
                 pastedShapeList.add(shapeToPaste);
             }
-
             for (IShape shape : pastedShapeList) {
                 shapeList.add(shape);
             }
-            System.out.println("master: " + shapeList.getMasterList());
-
-            System.out.println("pasted shapes: " + pastedShapeList);
-
             CommandHistory.add(this);
         }
     }

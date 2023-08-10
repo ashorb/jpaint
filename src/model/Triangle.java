@@ -32,6 +32,9 @@ class Triangle extends Shape {
         x = x + deltaX;
         y = y + deltaY;
 
+        largestX += deltaX;
+        largestY += deltaY;
+
         startX += deltaX;
         startY += deltaY;
         endX = endX + deltaX;

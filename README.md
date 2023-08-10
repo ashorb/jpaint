@@ -5,18 +5,16 @@
 
 ### **Check-in 4:**
 -I've had major issues when attempting to implement grouping/ungrouping features.
--Working:
--Can group shapes. Grouped shapes can be selected and moved.
--Can undo/redo groupings.
--Can undo/redo delete with groups.
+<br/>**Working:**
+<br/>-Can group shapes. Grouped shapes can be selected and moved.
+<br/>-Can undo/redo delete with groups.
 
--Not working:
--When selecting a group after a new grouping is made, you must click on the newly created group again to select it.
- The group is not automatically selected after being made.
--Sometimes when adding new shapes to a group, the size of the selection box is not drawn correct and will not contain all grouped shapes.
--Could not get paste to work with groups.
--Delete sometimes does not remove all grouped shapes.
--After undoing/redoing a grouping, some shapes can be selected/deleted/moved individually, separate from the grouping.
+<br/>**Not working:**
+<br/>-Paste not working with groups.
+<br/>-Delete sometimes does not remove all grouped shapes.
+<br/>-Undo/redo not working correctly. Undo/redo does not undo the creation of a group, but gets rid of all shapes in a group. 
+Selection box reverts to original grouping size on undo/redo.
+
 
 ### **Check-in 3:**
 -Required features working. Selected shapes have a dashed outline and can be copied/pasted/deleted. 

@@ -47,6 +47,7 @@ public class PaintCanvas extends JComponent implements IShapeListObserver {
 
 //            s.draw(paintStrategy, graphics2d);
             s.draw(graphics2d);
+
             if (s.getIsSelected() == true){
                 s.select(graphics2d);
             }

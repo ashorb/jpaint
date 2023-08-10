@@ -7,7 +7,7 @@ import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
 
 public class SelectShape extends ObserverSubject implements ICommand {
-    private final IApplicationState appState;
+//    private final IApplicationState appState;
     private final ShapeList shapeList;
     private final Point startPoint;
     private final Point endPoint;
@@ -18,9 +18,14 @@ public class SelectShape extends ObserverSubject implements ICommand {
     int height;
     int width;
 
+    public SelectShape(ShapeList shapeList, Point startPoint, Point endPoint) {
+        this.shapeList = shapeList;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+    }
 
     public SelectShape(IApplicationState appState, ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
-        this.appState = appState;
+//        this.appState = appState;
         this.shapeList = shapeList;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -31,8 +36,6 @@ public class SelectShape extends ObserverSubject implements ICommand {
     public void execute() {
         for (IShape shape: shapeList.getMasterList()) {
             shape.setIsSelected(false);
-
-            System.out.println(shape + " " + shape.getIsSelected());
         }
 
         shapeList.getSelectedList().clear();
