@@ -1,7 +1,6 @@
 package model;
 
 import controller.ObserverSubject;
-import controller.commands.SelectShape;
 import controller.interfaces.IUndoable;
 import model.interfaces.IShape;
 import model.persistence.CommandHistory;

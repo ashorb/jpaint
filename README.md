@@ -4,12 +4,11 @@
 ### **GitHub link:** https://github.com/ashorb/jpaint
 
 ### **Check-in 4:**
-<br/>**Working:**
-<br/>-Can group shapes. Grouped shapes can be selected, moved, copied, and deleted.
-<br/>-Can undo/redo delete with groups.
+**Working:**
+<br/>-Can group shapes. Grouped shapes can be selected, moved, copied, pasted, and deleted.
+<br/>-Can undo/redo grouping, paste, move, and delete with groups.
 
 <br/>**Not working:**
-<br/>-Paste not working with groups.
 <br/>-Delete does not work after undoing/redoing a grouping.
 
 

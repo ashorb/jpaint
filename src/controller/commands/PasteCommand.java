@@ -14,6 +14,7 @@ public class PasteCommand implements ICommand, IUndoable {
     private final ArrayList<IShape> pastedShapeList = new ArrayList<>();
     private final Point startPoint = new Point();
     private final Point endPoint = new Point();
+    int offset = 50;
 
     IApplicationState appState;
     ShapeAttributes shapeAttributes;
@@ -29,7 +30,6 @@ public class PasteCommand implements ICommand, IUndoable {
     public void execute() {
         if (!(shapeList.getCopyList().isEmpty())) {
             for (IShape shape : shapeList.getCopyList()) {
-                int offset = 50;
 
                 shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
                 shapeToPaste = shape;
@@ -46,18 +46,45 @@ public class PasteCommand implements ICommand, IUndoable {
                 } else if (shape.getIShapeType().equals("TRIANGLE")) {
                     shapeToPaste = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
                 } else if (shape.getIShapeType().equals("GROUP")) {
-
                     shapeToPaste = new GroupedShapes(startPoint, endPoint, offset);
-                    shapeToPaste.move(50,50);
-                    shapeToPaste.setGroupCoordinates();
-
+                    createGroupToPaste(shape, shapeToPaste);
+                    shapeToPaste.move(offset,offset);
                 }
                 pastedShapeList.add(shapeToPaste);
             }
             for (IShape shape : pastedShapeList) {
                 shapeList.add(shape);
             }
+            System.out.println("pasted: " + pastedShapeList);
             CommandHistory.add(this);
+        }
+    }
+
+    public void createGroupToPaste(IShape shape, IShape shapeToPaste) {
+        for (IShape s : shape.getChildren()) {
+            createGroupToPasteRecursive(s, shapeToPaste);
+        }
+    }
+
+    public void createGroupToPasteRecursive(IShape shape, IShape shapeToPaste) {
+        if (shape.getIShapeType().equals("GROUP")) {
+            for (IShape s : shape.getChildren()) {
+                createGroupToPasteRecursive(s, shapeToPaste);
+            }
+
+        } else {
+            startPoint.x = shape.getStartX() + offset;
+            startPoint.y = shape.getStartY() + offset;
+            endPoint.x = shape.getEndX() + offset;
+            endPoint.y = shape.getEndY() + offset;
+
+            if (shape.getIShapeType().equals("RECTANGLE")) {
+                shapeToPaste.getChildren().add(ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint));
+            } else if (shape.getIShapeType().equals("ELLIPSE")) {
+                shapeToPaste.getChildren().add(ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint));
+            } else if (shape.getIShapeType().equals("TRIANGLE")) {
+                shapeToPaste.getChildren().add(ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint));
+            }
         }
     }
 
