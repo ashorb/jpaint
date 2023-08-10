@@ -65,11 +65,14 @@ public class JPaintController extends ObserverSubject implements IJPaintControll
 
     private void group() {
         GroupedShapesFactory groupedShapes = new GroupedShapesFactory(shapeList);
-        groupedShapes.getGroupedShapes(shapeList);
+        groupedShapes.getGroupedShapes();
         notifyShapeListObservers();
     }
 
     private void ungroup() {
+        UngroupShapes ungroup = new UngroupShapes(shapeList);
+        ungroup.ungroupShapes();
+        notifyShapeListObservers();
     }
 
     private void notifyShapeListObservers(){

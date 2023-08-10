@@ -16,13 +16,14 @@ public class GroupedShapesFactory extends ObserverSubject implements IUndoable {
         this.shapeList = shapeList;
     }
 
-    public void getGroupedShapes(ShapeList shapeList){
-
+    public void getGroupedShapes(){
         group = new GroupedShapes();
 
         for (IShape shape : shapeList.getSelectedList()){
-            shapeList.getMasterList().remove(shape);
-            group.addIShape(shape);
+            if (shapeList.getMasterList().contains(shape)) {
+                shapeList.getMasterList().remove(shape);
+                group.addIShape(shape);
+            }
         }
 
         shapeList.getMasterList().add(group);
@@ -33,7 +34,6 @@ public class GroupedShapesFactory extends ObserverSubject implements IUndoable {
         CommandHistory.add(this);
         notifyShapeListObservers();
     }
-
 
     @Override
     public void undo() {
@@ -62,10 +62,12 @@ public class GroupedShapesFactory extends ObserverSubject implements IUndoable {
                     child.setIsSelected(false);
                 if (shapeList.getMasterList().contains(child)){
                     shapeList.remove(child);
+                    notifyShapeListObservers();
                 }
             }
             shapeList.add(group);
         }
+        notifyShapeListObservers();
     }
 
     private void notifyShapeListObservers(){
