@@ -3,7 +3,6 @@ package model.interfaces;
 import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
-import model.drawing.ShapePainter;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -33,29 +32,24 @@ public interface IShape {
 
     void setIsSelected(Boolean bool);
     Boolean getIsSelected();
-    ShapeType getShapeType();
-    ShapeShadingType getShapeShadingType();
-    ShapeColor getPrimaryColor();
-    ShapeColor getSecondaryColor();
 
-    void move(int deltaX, int deltaY);
-//    void draw(IPaintStrategy paintStrategy, Graphics2D graphics2D);
-    void draw(Graphics2D graphics2D);
-
-    default void setGroupCoordinates(){
-
+    default ShapeType getShapeType() {
+        return ShapeType.RECTANGLE;
+    }
+    default ShapeShadingType getShapeShadingType() {
+        return ShapeShadingType.FILLED_IN;
+    }
+    default ShapeColor getPrimaryColor() {
+        return ShapeColor.BLUE;
+    }
+    default ShapeColor getSecondaryColor() {
+        return ShapeColor.GREEN;
     }
 
+    void move(int deltaX, int deltaY);
+    void draw(Graphics2D graphics2D);
     void select(Graphics2D graphics2D);
-//    void move();
-
-//    public int getMinCoordinate();
-//
-//    public int getMaxCoordinate();
-
     String getIShapeType();
-
-
     default List<IShape> getChildren() {
         return new ArrayList<>();
     }

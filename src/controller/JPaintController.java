@@ -2,8 +2,7 @@ package controller;
 
 import controller.commands.*;
 import controller.interfaces.IJPaintController;
-import model.GroupedShapes;
-import model.GroupedShapesFactory;
+import controller.commands.GroupCommand;
 import model.ShapeList;
 import model.interfaces.IApplicationState;
 import controller.interfaces.ICommand;
@@ -64,15 +63,17 @@ public class JPaintController extends ObserverSubject implements IJPaintControll
     }
 
     private void group() {
-        GroupedShapesFactory groupedShapes = new GroupedShapesFactory(shapeList);
-        groupedShapes.getGroupedShapes();
-        notifyShapeListObservers();
+//        GroupCommand groupedShapes = new GroupCommand(shapeList);
+//        groupedShapes.getGroupedShapes();
+//        notifyShapeListObservers();
+
+        command = new GroupCommand(shapeList);
+        command.execute();
     }
 
     private void ungroup() {
-        UngroupShapes ungroup = new UngroupShapes(shapeList);
-        ungroup.ungroupShapes();
-        notifyShapeListObservers();
+        command = new UngroupCommand(shapeList);
+        command.execute();
     }
 
     private void notifyShapeListObservers(){

@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupedShapes implements IShape {
-
     private final List<IShape> children;
 
     int x;
@@ -52,10 +51,6 @@ public class GroupedShapes implements IShape {
         return children;
     }
     @Override
-    public String getIShapeType() {
-        return "GROUP";
-    }
-    @Override
     public int getX() {
         return x;
     }
@@ -87,22 +82,7 @@ public class GroupedShapes implements IShape {
     public Boolean getIsSelected(){
         return isSelected;
     }
-    @Override
-    public ShapeType getShapeType() {
-        return ShapeType.RECTANGLE;
-    }
-    @Override
-    public ShapeShadingType getShapeShadingType() {
-        return ShapeShadingType.FILLED_IN;
-    }
-    @Override
-    public ShapeColor getPrimaryColor() {
-        return ShapeColor.BLUE;
-    }
-    @Override
-    public ShapeColor getSecondaryColor() {
-        return ShapeColor.GREEN;
-    }
+
     @Override
     public int getStartX() {
         Integer minCoordinate = Integer.MAX_VALUE;
@@ -140,7 +120,28 @@ public class GroupedShapes implements IShape {
         return maxCoordinate;
     }
 
+    public void addIShape(IShape shape) {
+        children.add(shape);
+    }
+
     @Override
+    public void move(int deltaX, int deltaY) {
+        for (IShape shape : children){
+            shape.move(deltaX, deltaY);
+        }
+
+        x = x + deltaX;
+        y = y + deltaY;
+
+        largestX += deltaX;
+        largestY += deltaY;
+
+        startX += deltaX;
+        startY += deltaY;
+        endX = endX + deltaX;
+        endY = endY + deltaY;
+    }
+
     public void setGroupCoordinates(){
         x = Math.min(getStartX(), getEndX());
         y = Math.min(getStartY(), getEndY());
@@ -183,33 +184,15 @@ public class GroupedShapes implements IShape {
         }
     }
 
-    public void addIShape(IShape shape) {
-        children.add(shape);
-    }
-
-    @Override
-    public void move(int deltaX, int deltaY) {
-        for (IShape shape : children){
-            shape.move(deltaX, deltaY);
-        }
-
-        x = x + deltaX;
-        y = y + deltaY;
-
-        largestX += deltaX;
-        largestY += deltaY;
-
-        startX += deltaX;
-        startY += deltaY;
-        endX = endX + deltaX;
-        endY = endY + deltaY;
-    }
-
     @Override
     public void select(Graphics2D graphics2d) {
         Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
         graphics2d.setStroke(stroke);
         graphics2d.setColor(Color.MAGENTA);
         graphics2d.drawRect(getX() - 5, getY() - 5, getWidth() + 10, getHeight() + 10);
+    }
+    @Override
+    public String getIShapeType() {
+        return "GROUP";
     }
 }

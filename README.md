@@ -24,8 +24,8 @@
 
 ### **Design patterns used:**
 
-**Command pattern used for Draw/Select/Move shapes, Copy/Paste/Delete shapes, and Undo/Redo features:** 
-ICommand, CreateShape, SelectShape, MoveShape, CopyCommand, PasteCommand, DeleteCommand,
+**Command pattern used for Draw/Select/Move shapes, Copy/Paste/Delete/Group/Ungroup shapes, and Undo/Redo features:** 
+ICommand, CreateShape, SelectShape, MoveShape, CopyCommand, PasteCommand, DeleteCommand, GroupCommand, UngroupCommand
 UndoCommand, RedoCommand, JPaintController, CommandHistory, IUndoable
 
 **Static Factory pattern used for creating shapes:**

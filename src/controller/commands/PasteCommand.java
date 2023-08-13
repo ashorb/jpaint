@@ -30,7 +30,6 @@ public class PasteCommand implements ICommand, IUndoable {
     public void execute() {
         if (!(shapeList.getCopyList().isEmpty())) {
             for (IShape shape : shapeList.getCopyList()) {
-
                 shapeToPaste = shape;
 
                 startPoint.x = shapeToPaste.getStartX() + offset;
@@ -38,7 +37,6 @@ public class PasteCommand implements ICommand, IUndoable {
                 endPoint.x = shapeToPaste.getEndX() + offset;
                 endPoint.y = shapeToPaste.getEndY() + offset;
 
-//                System.out.println(shape + " " + shape.getPrimaryColor() + " " + shape.getSecondaryColor());
                 if (shape.getIShapeType().equals("GROUP")) {
                     shapeToPaste = new GroupedShapes(startPoint, endPoint, offset);
                     createGroupToPaste(shape, shapeToPaste);
@@ -59,7 +57,6 @@ public class PasteCommand implements ICommand, IUndoable {
             for (IShape shape : pastedShapeList) {
                 shapeList.add(shape);
             }
-            System.out.println("pasted: " + pastedShapeList);
             CommandHistory.add(this);
         }
     }
@@ -85,13 +82,10 @@ public class PasteCommand implements ICommand, IUndoable {
             shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
 
             if (shape.getIShapeType().equals("RECTANGLE")) {
-                System.out.println(shape + " " + shape.getPrimaryColor());
                 shapeToPaste.getChildren().add(ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint));
             } else if (shape.getIShapeType().equals("ELLIPSE")) {
-                System.out.println(shape + " " + shape.getPrimaryColor());
                 shapeToPaste.getChildren().add(ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint));
             } else if (shape.getIShapeType().equals("TRIANGLE")) {
-                System.out.println(shape + " " + shape.getPrimaryColor());
                 shapeToPaste.getChildren().add(ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint));
             }
         }

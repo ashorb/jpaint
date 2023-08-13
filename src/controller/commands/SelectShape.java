@@ -7,7 +7,6 @@ import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
 
 public class SelectShape extends ObserverSubject implements ICommand {
-//    private final IApplicationState appState;
     private final ShapeList shapeList;
     private final Point startPoint;
     private final Point endPoint;
@@ -25,7 +24,6 @@ public class SelectShape extends ObserverSubject implements ICommand {
     }
 
     public SelectShape(IApplicationState appState, ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
-//        this.appState = appState;
         this.shapeList = shapeList;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -40,14 +38,10 @@ public class SelectShape extends ObserverSubject implements ICommand {
 
         shapeList.getSelectedList().clear();
 
-//        IShape selectionBox = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
-
-
         x = Math.min(startPoint.getX(), endPoint.getX());
         y = Math.min(startPoint.getY(), endPoint.getY());
         width = Math.abs(endPoint.getX() - startPoint.getX());
         height = Math.abs(endPoint.getY() - startPoint.getY());
-
 
         for (IShape shape: shapeList.getMasterList()) {
             if (collision(shape)) {
@@ -72,19 +66,6 @@ public class SelectShape extends ObserverSubject implements ICommand {
             return false;
         }
     }
-
-//    public boolean collision(IShape selectionBox, IShape shape){
-//        if(
-//                selectionBox.getX() < shape.getX() + shape.getWidth() &&
-//                        selectionBox.getX() + selectionBox.getWidth() > shape.getX() &&
-//                        selectionBox.getY() < shape.getY() + shape.getHeight() &&
-//                        selectionBox.getY() + selectionBox.getHeight() > shape.getY()
-//        ) {
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     private void notifyShapeListObservers(){
         for (var shapeListObserver : getShapeListObservers()){

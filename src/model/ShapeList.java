@@ -20,13 +20,6 @@ final public class ShapeList extends ObserverSubject {
         masterList.add(s);
         notifyShapeListObservers();
     }
-
-//    public void remove() {
-//        if (masterList.isEmpty()) throw new EmptyStackException();
-//        masterList.remove(masterList.size()-1);
-//        notifyShapeListObservers();
-//    }
-
     public void remove(IShape shape) {
         if (masterList.isEmpty()) throw new EmptyStackException();
         masterList.remove(shape);
@@ -36,11 +29,9 @@ final public class ShapeList extends ObserverSubject {
     public ArrayList<IShape> getMasterList() {
         return masterList;
     }
-
     public ArrayList<IShape> getSelectedList() {
         return selectedList;
     }
-
     public ArrayList<IShape> getCopyList() {
         return copyList;
     }

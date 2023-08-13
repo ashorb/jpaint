@@ -1,11 +1,6 @@
 package model;
-import model.drawing.PaintRectangle;
-import model.drawing.ShapePainter;
 import model.interfaces.IApplicationState;
-import model.interfaces.IPaintStrategy;
 import model.interfaces.IShape;
-
-import java.awt.*;
 
 public abstract class Shape implements IShape{
     int x;
@@ -20,9 +15,6 @@ public abstract class Shape implements IShape{
     int endY;
     int width;
     int height;
-
-//    int[] xPoints;
-//    int[] yPoints;
 
     ShapeType shapeType;
     ShapeShadingType shapeShadingType;
@@ -126,33 +118,4 @@ public abstract class Shape implements IShape{
     public ShapeColor getSecondaryColor() {
         return secondaryColor;
     }
-
-//    @Override
-//    public void move(int deltaX, int deltaY){
-//        x = x + deltaX;
-//        y = y + deltaY;
-//
-//        startX += deltaX;
-//        startY += deltaY;
-//        endX = endX + deltaX;
-//        endY = endY + deltaY;
-//
-//        xPoints = new int[]{startX, endX, startX};
-//        yPoints = new int[]{startY, endY, endY};
-//    }
-//
-//    @Override
-//    public void draw(IPaintStrategy paintStrategy, Graphics2D graphics2D) {
-//        ShapePainter painter = new ShapePainter(paintStrategy);
-//        painter.paintShape(this, graphics2D);
-//    }
-
-//    public int getMinCoordinate() {
-//        return 0;
-//    }
-//
-//    public int getMaxCoordinate() {
-//        return 0;
-//    }
-
 }

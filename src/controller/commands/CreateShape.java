@@ -56,11 +56,16 @@ public class CreateShape implements ICommand, IUndoable {
     @Override
     public void undo() {
         list.remove(ishape);
+//        ishape.setIsSelected(false);
+//        list.getSelectedList().remove(ishape);
     }
 
     @Override
     public void redo() {
         list.add(ishape);
+//        if(ishape.getIsSelected() == true){
+//            list.getSelectedList().add(ishape);
+//        }
     }
 
 }
