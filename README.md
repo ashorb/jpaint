@@ -4,20 +4,23 @@
 ### **GitHub link:** https://github.com/ashorb/jpaint
 
 ### **Check-in 4:**
--Required features seem to be working correctly.
+-Required features working.
 <br/>-Can group/ungroup shapes. Grouped shapes can be selected, moved, copied, pasted, and deleted.
 <br/>-Can undo/redo grouping and ungrouping, paste, move, and delete with groups.
 
 ### **Check-in 3:**
--Required features working. Selected shapes have a dashed outline and can be copied/pasted/deleted. 
- Can undo/redo paste and delete.
+-Required features working.
+<br/>Selected shapes have a dashed outline and can be copied/pasted/deleted.
+<br/>-Can undo/redo paste and delete.
 
 ### **Check-in 2:**
--Required features working. Can draw rectangle, ellipses, and triangles of all three shading types.
- Can select and move single/multiple shapes and can undo/redo move.
+-Required features working.
+<br/>Can draw rectangle, ellipses, and triangles of all three shading types.
+<br/>-Can select and move single/multiple shapes and can undo/redo move.
 
 ### **Check-in 1:**
--Required features working. Can draw rectangles from all directions and can undo/redo.
+-Required features working.
+<br/>-Can draw rectangles from all directions and can undo/redo.
 
 ### **Design patterns used:**
 

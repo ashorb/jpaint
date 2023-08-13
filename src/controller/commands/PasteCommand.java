@@ -31,7 +31,6 @@ public class PasteCommand implements ICommand, IUndoable {
         if (!(shapeList.getCopyList().isEmpty())) {
             for (IShape shape : shapeList.getCopyList()) {
 
-                shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
                 shapeToPaste = shape;
 
                 startPoint.x = shapeToPaste.getStartX() + offset;
@@ -39,16 +38,21 @@ public class PasteCommand implements ICommand, IUndoable {
                 endPoint.x = shapeToPaste.getEndX() + offset;
                 endPoint.y = shapeToPaste.getEndY() + offset;
 
-                if (shape.getIShapeType().equals("RECTANGLE")) {
-                    shapeToPaste = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
-                } else if (shape.getIShapeType().equals("ELLIPSE")) {
-                    shapeToPaste = ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint);
-                } else if (shape.getIShapeType().equals("TRIANGLE")) {
-                    shapeToPaste = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
-                } else if (shape.getIShapeType().equals("GROUP")) {
+//                System.out.println(shape + " " + shape.getPrimaryColor() + " " + shape.getSecondaryColor());
+                if (shape.getIShapeType().equals("GROUP")) {
                     shapeToPaste = new GroupedShapes(startPoint, endPoint, offset);
                     createGroupToPaste(shape, shapeToPaste);
                     shapeToPaste.move(offset,offset);
+                } else {
+                    shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
+
+                    if (shape.getIShapeType().equals("RECTANGLE")) {
+                        shapeToPaste = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
+                    } else if (shape.getIShapeType().equals("ELLIPSE")) {
+                        shapeToPaste = ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint);
+                    } else if (shape.getIShapeType().equals("TRIANGLE")) {
+                        shapeToPaste = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
+                    }
                 }
                 pastedShapeList.add(shapeToPaste);
             }
@@ -78,11 +82,16 @@ public class PasteCommand implements ICommand, IUndoable {
             endPoint.x = shape.getEndX() + offset;
             endPoint.y = shape.getEndY() + offset;
 
+            shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
+
             if (shape.getIShapeType().equals("RECTANGLE")) {
+                System.out.println(shape + " " + shape.getPrimaryColor());
                 shapeToPaste.getChildren().add(ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint));
             } else if (shape.getIShapeType().equals("ELLIPSE")) {
+                System.out.println(shape + " " + shape.getPrimaryColor());
                 shapeToPaste.getChildren().add(ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint));
             } else if (shape.getIShapeType().equals("TRIANGLE")) {
+                System.out.println(shape + " " + shape.getPrimaryColor());
                 shapeToPaste.getChildren().add(ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint));
             }
         }
