@@ -1,16 +1,16 @@
-package model;
+package model.createshapes;
 
+import model.ShapeAttributes;
 import model.drawing.PaintEllipse;
 import model.drawing.ShapePainter;
-import model.interfaces.IApplicationState;
 import model.interfaces.IPaintStrategy;
 
 import java.awt.*;
 
 class Ellipse extends Shape {
 
-    public Ellipse(IApplicationState appState, ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY) {
-        super(appState, shapeAttributes, startX, startY, endX, endY);
+    public Ellipse(ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY) {
+        super(shapeAttributes, startX, startY, endX, endY);
     }
 
     @Override

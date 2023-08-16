@@ -20,6 +20,5 @@ public class CopyCommand implements ICommand {
                 shapeList.getCopyList().add(shape);
             }
         }
-        System.out.println("CopyCommand (copylist): " + shapeList.getCopyList());
     }
 }

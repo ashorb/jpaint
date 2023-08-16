@@ -3,14 +3,13 @@ package controller.commands;
 import controller.interfaces.ICommand;
 import model.*;
 import controller.interfaces.IUndoable;
-import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
 import model.persistence.CommandHistory;
+import model.createshapes.ShapeFactory;
 
 public class CreateShape implements ICommand, IUndoable {
     private IShape ishape;
     private static ShapeList list;
-    private final IApplicationState appState;
     private final ShapeList shapeList;
     private final Point startPoint;
     private final Point endPoint;
@@ -21,8 +20,7 @@ public class CreateShape implements ICommand, IUndoable {
     ShapeAttributes shapeAttributes;
 
 
-    public CreateShape(IApplicationState appState, ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
-        this.appState = appState;
+    public CreateShape(ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
         this.shapeList = shapeList;
 
         this.shapeType = shapeAttributes.getShapeType();
@@ -39,13 +37,13 @@ public class CreateShape implements ICommand, IUndoable {
     @Override
     public void execute() {
         if (shapeType.equals(ShapeType.RECTANGLE)) {
-            ishape = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
+            ishape = ShapeFactory.createRectangle(shapeAttributes, startPoint, endPoint);
         }
         else if (shapeType.equals(ShapeType.ELLIPSE)) {
-            ishape = ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint);
+            ishape = ShapeFactory.createEllipse(shapeAttributes, startPoint, endPoint);
         }
         else if (shapeType.equals(ShapeType.TRIANGLE)){
-            ishape = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
+            ishape = ShapeFactory.createTriangle(shapeAttributes, startPoint, endPoint);
         }
 
         list = shapeList;
@@ -56,16 +54,11 @@ public class CreateShape implements ICommand, IUndoable {
     @Override
     public void undo() {
         list.remove(ishape);
-//        ishape.setIsSelected(false);
-//        list.getSelectedList().remove(ishape);
     }
 
     @Override
     public void redo() {
         list.add(ishape);
-//        if(ishape.getIsSelected() == true){
-//            list.getSelectedList().add(ishape);
-//        }
     }
 
 }

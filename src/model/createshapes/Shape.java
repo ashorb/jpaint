@@ -1,5 +1,8 @@
-package model;
-import model.interfaces.IApplicationState;
+package model.createshapes;
+import model.ShapeAttributes;
+import model.ShapeColor;
+import model.ShapeShadingType;
+import model.ShapeType;
 import model.interfaces.IShape;
 
 public abstract class Shape implements IShape{
@@ -22,7 +25,7 @@ public abstract class Shape implements IShape{
     ShapeColor secondaryColor;
     Boolean isSelected = false;
 
-    public Shape(IApplicationState appState, ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY){
+    public Shape(ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY){
         x = Math.min(startX, endX);
         y = Math.min(startY, endY);
 
@@ -43,7 +46,7 @@ public abstract class Shape implements IShape{
         this.secondaryColor = shapeAttributes.getSecondaryColor();
     }
 
-    public Shape(IApplicationState appState, ShapeAttributes shapeAttributes){
+    public Shape(ShapeAttributes shapeAttributes){
         this.shapeType = shapeAttributes.getShapeType();
         this.shapeShadingType = shapeAttributes.getShapeShadingType();
         this.primaryColor = shapeAttributes.getPrimaryColor();

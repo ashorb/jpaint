@@ -3,7 +3,6 @@ package controller.commands;
 import controller.ObserverSubject;
 import controller.interfaces.ICommand;
 import model.*;
-import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
 
 public class SelectShape extends ObserverSubject implements ICommand {
@@ -23,7 +22,7 @@ public class SelectShape extends ObserverSubject implements ICommand {
         this.endPoint = endPoint;
     }
 
-    public SelectShape(IApplicationState appState, ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
+    public SelectShape(ShapeList shapeList, ShapeAttributes shapeAttributes, Point startPoint, Point endPoint) {
         this.shapeList = shapeList;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
@@ -35,7 +34,6 @@ public class SelectShape extends ObserverSubject implements ICommand {
         for (IShape shape: shapeList.getMasterList()) {
             shape.setIsSelected(false);
         }
-
         shapeList.getSelectedList().clear();
 
         x = Math.min(startPoint.getX(), endPoint.getX());

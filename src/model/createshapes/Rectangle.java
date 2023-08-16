@@ -1,16 +1,16 @@
-package model;
+package model.createshapes;
 
+import model.ShapeAttributes;
 import model.drawing.PaintRectangle;
 import model.drawing.ShapePainter;
-import model.interfaces.IApplicationState;
 import model.interfaces.IPaintStrategy;
 
 import java.awt.*;
 
 class Rectangle extends Shape {
 
-    public Rectangle(IApplicationState appState, ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY) {
-        super(appState, shapeAttributes, startX, startY, endX, endY);
+    public Rectangle(ShapeAttributes shapeAttributes, int startX, int startY, int endX, int endY) {
+        super(shapeAttributes, startX, startY, endX, endY);
     }
 
     @Override

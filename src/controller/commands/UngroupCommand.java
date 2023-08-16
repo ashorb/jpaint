@@ -20,27 +20,19 @@ public class UngroupCommand extends ObserverSubject implements ICommand, IUndoab
 
     @Override
     public void execute() {
-        System.out.println("selected: " + shapeList.getSelectedList());
-
         for (IShape group : shapeList.getSelectedList()) {
-            System.out.println(shapeList.getSelectedList() + " " + group.getIShapeType() + " " + group.getIsSelected());
-
             if (group.getIShapeType().equals("GROUP")) {
                 groups.add(group);
-
                 if (shapeList.getMasterList().contains(group)) {
                     shapeList.remove(group);
                 }
-
                 CommandHistory.add(this);
             }
         }
-
         shapeList.getSelectedList().clear();
 
         for (IShape group : groups) {
             shapeList.getSelectedList().remove(group);
-
             for (IShape shape : group.getChildren()) {
                 if (!shapeList.getMasterList().contains(shape)) {
                     shapeList.add(shape);
@@ -49,9 +41,7 @@ public class UngroupCommand extends ObserverSubject implements ICommand, IUndoab
                 shapeList.getSelectedList().add(shape);
             }
         }
-
         notifyShapeListObservers();
-        System.out.println("selected after: " + shapeList.getSelectedList());
     }
 
     @Override
@@ -60,7 +50,6 @@ public class UngroupCommand extends ObserverSubject implements ICommand, IUndoab
         for(IShape shape : shapeList.getMasterList()){
             shape.setIsSelected(false);
         }
-
         for (IShape group : groups) {
             for (IShape child : group.getChildren()){
                 child.setIsSelected(false);

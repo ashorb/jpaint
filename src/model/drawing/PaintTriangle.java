@@ -5,8 +5,6 @@ import model.interfaces.IShape;
 import java.awt.*;
 
 public class PaintTriangle implements IPaintStrategy {
-    int[] xPoints;
-    int[] yPoints;
     @Override
     public void drawFilledIn(IShape shape, Graphics2D graphics2d) {
         graphics2d.setColor(shape.getPrimaryColor().getColor());

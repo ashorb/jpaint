@@ -3,7 +3,7 @@ package controller.commands;
 import controller.ObserverSubject;
 import controller.interfaces.ICommand;
 import controller.interfaces.IUndoable;
-import model.GroupedShapes;
+import model.createshapes.GroupedShapes;
 import model.ShapeList;
 import model.interfaces.IShape;
 import model.persistence.CommandHistory;
@@ -36,8 +36,6 @@ public class GroupCommand extends ObserverSubject implements ICommand, IUndoable
         shapeList.getSelectedList().add(group);
         CommandHistory.add(this);
         notifyShapeListObservers();
-
-        System.out.println("grouping selected: " + shapeList.getSelectedList());
     }
 
     @Override
@@ -48,7 +46,6 @@ public class GroupCommand extends ObserverSubject implements ICommand, IUndoable
         }
 
         for (IShape group : groups) {
-            System.out.println("children undo: " + group.getChildren());
             if (shapeList.getMasterList().contains(group)) {
                 for (IShape shape : group.getChildren()) {
                     if (!shapeList.getMasterList().contains(shape)) {
@@ -74,7 +71,6 @@ public class GroupCommand extends ObserverSubject implements ICommand, IUndoable
         }
 
         for (IShape group : groups) {
-            System.out.println("children redo: " + group.getChildren());
             for (IShape child : group.getChildren()){
                     child.setIsSelected(false);
                 if (shapeList.getMasterList().contains(child)){

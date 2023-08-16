@@ -37,5 +37,5 @@ PaintCanvas, IPaintStrategy, ShapePainter, PaintRectangle, PaintEllipse, PaintTr
 **Observer pattern used for decoupling PaintCanvas and repaint() from ShapeList, SelectShape, and MoveShape:**
 PaintCanvas, ShapeList, SelectShape, MoveShape, Main, ObserverSubject, IShapeListObserver, IShapeListSubject
 
-**Singleton pattern used for guaranteeing only a single instance of PaintCanvas:**
+**Singleton pattern (lazy loading) used for guaranteeing only a single instance of PaintCanvas:**
 PaintCanvas, Main

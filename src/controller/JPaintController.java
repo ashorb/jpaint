@@ -9,7 +9,7 @@ import controller.interfaces.ICommand;
 import view.EventName;
 import view.interfaces.IUiModule;
 
-public class JPaintController extends ObserverSubject implements IJPaintController {
+public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
     private ICommand command;
@@ -53,7 +53,7 @@ public class JPaintController extends ObserverSubject implements IJPaintControll
     }
 
     private void paste() {
-        command = new PasteCommand(applicationState, shapeList);
+        command = new PasteCommand(shapeList);
         command.execute();
     }
 
@@ -63,10 +63,6 @@ public class JPaintController extends ObserverSubject implements IJPaintControll
     }
 
     private void group() {
-//        GroupCommand groupedShapes = new GroupCommand(shapeList);
-//        groupedShapes.getGroupedShapes();
-//        notifyShapeListObservers();
-
         command = new GroupCommand(shapeList);
         command.execute();
     }
@@ -74,11 +70,5 @@ public class JPaintController extends ObserverSubject implements IJPaintControll
     private void ungroup() {
         command = new UngroupCommand(shapeList);
         command.execute();
-    }
-
-    private void notifyShapeListObservers(){
-        for (var shapeListObserver : getShapeListObservers()){
-            shapeListObserver.update();
-        }
     }
 }

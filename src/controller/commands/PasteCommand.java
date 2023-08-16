@@ -3,9 +3,10 @@ package controller.commands;
 import controller.interfaces.ICommand;
 import controller.interfaces.IUndoable;
 import model.*;
-import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
 import model.persistence.CommandHistory;
+import model.createshapes.GroupedShapes;
+import model.createshapes.ShapeFactory;
 
 import java.util.ArrayList;
 
@@ -16,14 +17,12 @@ public class PasteCommand implements ICommand, IUndoable {
     private final Point endPoint = new Point();
     int offset = 50;
 
-    IApplicationState appState;
     ShapeAttributes shapeAttributes;
     IShape shapeToPaste;
 
 
-    public PasteCommand(IApplicationState appState, ShapeList shapeList) {
+    public PasteCommand(ShapeList shapeList) {
         this.shapeList = shapeList;
-        this.appState = appState;
     }
 
     @Override
@@ -45,11 +44,11 @@ public class PasteCommand implements ICommand, IUndoable {
                     shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
 
                     if (shape.getIShapeType().equals("RECTANGLE")) {
-                        shapeToPaste = ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint);
+                        shapeToPaste = ShapeFactory.createRectangle(shapeAttributes, startPoint, endPoint);
                     } else if (shape.getIShapeType().equals("ELLIPSE")) {
-                        shapeToPaste = ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint);
+                        shapeToPaste = ShapeFactory.createEllipse(shapeAttributes, startPoint, endPoint);
                     } else if (shape.getIShapeType().equals("TRIANGLE")) {
-                        shapeToPaste = ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint);
+                        shapeToPaste = ShapeFactory.createTriangle(shapeAttributes, startPoint, endPoint);
                     }
                 }
                 pastedShapeList.add(shapeToPaste);
@@ -82,11 +81,11 @@ public class PasteCommand implements ICommand, IUndoable {
             shapeAttributes = new ShapeAttributes(shape.getShapeType(), shape.getShapeShadingType(), shape.getPrimaryColor(), shape.getSecondaryColor());
 
             if (shape.getIShapeType().equals("RECTANGLE")) {
-                shapeToPaste.getChildren().add(ShapeFactory.createRectangle(appState, shapeAttributes, startPoint, endPoint));
+                shapeToPaste.getChildren().add(ShapeFactory.createRectangle(shapeAttributes, startPoint, endPoint));
             } else if (shape.getIShapeType().equals("ELLIPSE")) {
-                shapeToPaste.getChildren().add(ShapeFactory.createEllipse(appState, shapeAttributes, startPoint, endPoint));
+                shapeToPaste.getChildren().add(ShapeFactory.createEllipse(shapeAttributes, startPoint, endPoint));
             } else if (shape.getIShapeType().equals("TRIANGLE")) {
-                shapeToPaste.getChildren().add(ShapeFactory.createTriangle(appState, shapeAttributes, startPoint, endPoint));
+                shapeToPaste.getChildren().add(ShapeFactory.createTriangle(shapeAttributes, startPoint, endPoint));
             }
         }
     }

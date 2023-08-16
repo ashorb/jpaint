@@ -1,5 +1,6 @@
-package model;
+package model.createshapes;
 
+import model.Point;
 import model.drawing.PaintEllipse;
 import model.drawing.PaintRectangle;
 import model.drawing.PaintTriangle;
@@ -26,19 +27,19 @@ public class GroupedShapes implements IShape {
     int height;
     Boolean isSelected = false;
     int offset = 0;
-    Point startPoint;
-    Point endPoint;
+    model.Point startPoint;
+    model.Point endPoint;
 
     public GroupedShapes() {
         this.children = new ArrayList<>();
-        startPoint = new Point();
-        endPoint = new Point();
+        startPoint = new model.Point();
+        endPoint = new model.Point();
         startPoint.x = x;
         startPoint.y = y;
         endPoint.x = largestX;
         endPoint.y = largestY;
     }
-    public GroupedShapes(Point startPoint, Point endPoint, int offset) {
+    public GroupedShapes(model.Point startPoint, Point endPoint, int offset) {
         this.children = new ArrayList<>();
         this.startX = startPoint.getX();
         this.startY = startPoint.getY();
@@ -85,7 +86,7 @@ public class GroupedShapes implements IShape {
 
     @Override
     public int getStartX() {
-        Integer minCoordinate = Integer.MAX_VALUE;
+        int minCoordinate = Integer.MAX_VALUE;
         for (IShape child : children){
             minCoordinate = Math.min(minCoordinate, child.getX());
         }
@@ -94,7 +95,7 @@ public class GroupedShapes implements IShape {
     }
     @Override
     public int getStartY() {
-        Integer minCoordinate = Integer.MAX_VALUE;
+        int minCoordinate = Integer.MAX_VALUE;
         for (IShape child : children){
             minCoordinate = Math.min(minCoordinate, child.getY());
         }
@@ -103,7 +104,7 @@ public class GroupedShapes implements IShape {
     }
     @Override
     public int getEndX() {
-        Integer maxCoordinate = Integer.MIN_VALUE;
+        int maxCoordinate = Integer.MIN_VALUE;
         for (IShape child : children){
             maxCoordinate = Math.max(maxCoordinate, child.getLargestX());
         }
@@ -112,7 +113,7 @@ public class GroupedShapes implements IShape {
     }
     @Override
     public int getEndY() {
-        Integer maxCoordinate = Integer.MIN_VALUE;
+        int maxCoordinate = Integer.MIN_VALUE;
         for (IShape child : children){
             maxCoordinate = Math.max(maxCoordinate, child.getLargestY());
         }
